@@ -1,0 +1,519 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="GoORMHelperCache">
+    <option name="schemaMapping">
+      <map>
+        <entry key="CreateVehicleRequest">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/internal/usecase/vehicle/dto.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="GateLog">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/internal/domain/gateLog/entity.go" />
+              <option value="file://$PROJECT_DIR$/internal/domain/gate_log/entity.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="Handler">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/internal/delivery/http/vehicle/handler.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="OcrLog">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/internal/domain/ocrLog/entity.go" />
+              <option value="file://$PROJECT_DIR$/internal/domain/ocr_log/entity.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="Operator">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/internal/domain/operator/entity.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="ParkingTransaction">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/internal/domain/parkingTransaction/entity.go" />
+              <option value="file://$PROJECT_DIR$/internal/domain/parking_transaction/entity.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="Payment">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/internal/domain/payment/entity.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="ReportCache">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/internal/domain/reportCache/entity.go" />
+              <option value="file://$PROJECT_DIR$/internal/domain/report_cache/entity.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="Service">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/internal/usecase/vehicle/service.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="UpdateVehicleRequest">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/internal/usecase/vehicle/dto.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="Vehicle">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/internal/domain/vehicle/entity.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="VehicleRepository">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/internal/repository/postgres/vehicle_repo.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="VehicleResponse">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/internal/usecase/vehicle/dto.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="Zone">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/internal/domain/zone/entity.go" />
+              <option value="file://$PROJECT_DIR$/internal/domain/zone/zone.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="ZoneOccupancyLog">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/internal/domain/zoneOccupancyLog/entity.go" />
+              <option value="file://$PROJECT_DIR$/internal/domain/zone_occupancy_log/entity.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="ZoneRate">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/internal/domain/zoneRate/entity.go" />
+              <option value="file://$PROJECT_DIR$/internal/domain/zone_rate/entity.go" />
+            </set>
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="scannedPathMapping">
+      <map>
+        <entry key="file://$PROJECT_DIR$/cmd/api/main.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1769435813162" />
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/cmd/main.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1769473542943" />
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/internal/delivery/http/vehicle/handler.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1769473318688" />
+              <option name="schema">
+                <list>
+                  <option value="Handler" />
+                </list>
+              </option>
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/internal/domain/gateLog/entity.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1769438201635" />
+              <option name="schema">
+                <list>
+                  <option value="GateLog" />
+                </list>
+              </option>
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/internal/domain/gate_log/entity.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1769440174110" />
+              <option name="schema">
+                <list>
+                  <option value="GateLog" />
+                </list>
+              </option>
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/internal/domain/gate_log/errors.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1769440845005" />
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/internal/domain/gate_log/rules.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1769441003797" />
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/internal/domain/gate_log/types.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1769441020714" />
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/internal/domain/ocrLog/entity.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1769437757192" />
+              <option name="schema">
+                <list>
+                  <option value="OcrLog" />
+                </list>
+              </option>
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/internal/domain/ocr_log/entity.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1769440122290" />
+              <option name="schema">
+                <list>
+                  <option value="OcrLog" />
+                </list>
+              </option>
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/internal/domain/ocr_log/types.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1769440104281" />
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/internal/domain/operator/entity.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1769438553643" />
+              <option name="schema">
+                <list>
+                  <option value="Operator" />
+                </list>
+              </option>
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/internal/domain/operator/types.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1769438447915" />
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/internal/domain/parkingTransaction/entity.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1769437973345" />
+              <option name="schema">
+                <list>
+                  <option value="ParkingTransaction" />
+                </list>
+              </option>
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/internal/domain/parking_transaction/entity.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1769439705504" />
+              <option name="schema">
+                <list>
+                  <option value="ParkingTransaction" />
+                </list>
+              </option>
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/internal/domain/parking_transaction/types.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1769439705366" />
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/internal/domain/payment/entity.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1769439894002" />
+              <option name="schema">
+                <list>
+                  <option value="Payment" />
+                </list>
+              </option>
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/internal/domain/payment/types.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1769439894045" />
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/internal/domain/reportCache/entity.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1769437188308" />
+              <option name="schema">
+                <list>
+                  <option value="ReportCache" />
+                </list>
+              </option>
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/internal/domain/report_cache/entity.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1769438924809" />
+              <option name="schema">
+                <list>
+                  <option value="ReportCache" />
+                </list>
+              </option>
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/internal/domain/report_cache/types.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1769440253587" />
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/internal/domain/vehicle/entity.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1769472988646" />
+              <option name="schema">
+                <list>
+                  <option value="Vehicle" />
+                </list>
+              </option>
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/internal/domain/vehicle/repository.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1769473116099" />
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/internal/domain/vehicle/types.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1769436561223" />
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/internal/domain/zone.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1769436653639" />
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/internal/domain/zone/entity.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1769438701251" />
+              <option name="schema">
+                <list>
+                  <option value="Zone" />
+                </list>
+              </option>
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/internal/domain/zone/types.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1769439318750" />
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/internal/domain/zone/zone.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1769436707640" />
+              <option name="schema">
+                <list>
+                  <option value="Zone" />
+                </list>
+              </option>
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/internal/domain/zoneOccupancyLog/entity.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1769437090569" />
+              <option name="schema">
+                <list>
+                  <option value="ZoneOccupancyLog" />
+                </list>
+              </option>
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/internal/domain/zoneRate/entity.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1769437300623" />
+              <option name="schema">
+                <list>
+                  <option value="ZoneRate" />
+                </list>
+              </option>
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/internal/domain/zone_occupancy_log/entity.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1769439998383" />
+              <option name="schema">
+                <list>
+                  <option value="ZoneOccupancyLog" />
+                </list>
+              </option>
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/internal/domain/zone_occupancy_log/types.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1769439992088" />
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/internal/domain/zone_rate/entity.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1769439195705" />
+              <option name="schema">
+                <list>
+                  <option value="ZoneRate" />
+                </list>
+              </option>
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/internal/domain/zone_rate/types.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1769439195788" />
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/internal/repository/postgres/vehicle_repo.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1769473542471" />
+              <option name="schema">
+                <list>
+                  <option value="VehicleRepository" />
+                </list>
+              </option>
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/internal/usecase/vehicle/dto.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1769473048733" />
+              <option name="schema">
+                <list>
+                  <option value="CreateVehicleRequest" />
+                  <option value="UpdateVehicleRequest" />
+                  <option value="VehicleResponse" />
+                </list>
+              </option>
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/internal/usecase/vehicle/service.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1769473144370" />
+              <option name="schema">
+                <list>
+                  <option value="Service" />
+                </list>
+              </option>
+            </ScannedPath>
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="tableStructMapping">
+      <map>
+        <entry key="create_vehicle_request" value="CreateVehicleRequest" />
+        <entry key="gate_log" value="GateLog" />
+        <entry key="handler" value="Handler" />
+        <entry key="ocr_log" value="OcrLog" />
+        <entry key="operator" value="Operator" />
+        <entry key="parking_transaction" value="ParkingTransaction" />
+        <entry key="payment" value="Payment" />
+        <entry key="report_cache" value="ReportCache" />
+        <entry key="service" value="Service" />
+        <entry key="update_vehicle_request" value="UpdateVehicleRequest" />
+        <entry key="vehicle" value="Vehicle" />
+        <entry key="vehicle_repository" value="VehicleRepository" />
+        <entry key="vehicle_response" value="VehicleResponse" />
+        <entry key="zone" value="Zone" />
+        <entry key="zone_occupancy_log" value="ZoneOccupancyLog" />
+        <entry key="zone_rate" value="ZoneRate" />
+      </map>
+    </option>
+    <option name="lastTimeChecked" value="1769434882597" />
+  </component>
+</project>
