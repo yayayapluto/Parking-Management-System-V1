@@ -11,15 +11,33 @@ parking-system/
 ├── internal/
 │   │
 │   ├── models/
-│   │   ├── vehicle.go
-│   │   ├── zone.go
-│   │   ├── parking_transaction.go
-│   │   ├── payment.go
-│   │   ├── ocr_log.go
-│   │   ├── zone_rate.go
-│   │   ├── operator.go
-│   │   ├── zone_occupancy_log.go
-│   │   └── system_setting.go
+│   │   ├── vehicle_type.go           // GORM model
+│   │   ├── payment_method.go         // GORM model
+│   │   ├── holiday.go                // GORM model
+│   │   ├── zone_type.go              // GORM model
+│   │   ├── zone.go                   // GORM model
+│   │   ├── zone_rate.go              // GORM model
+│   │   ├── permission.go             // GORM model
+│   │   ├── role.go                   // GORM model
+│   │   ├── user.go                   // GORM model
+│   │   ├── customer_regist_source.go // GORM model
+│   │   ├── customer.go               // GORM model
+│   │   ├── vehicle.go                // GORM model
+│   │   ├── parking_transaction.go    // GORM model
+│   │   ├── transaction_zone.go       // GORM model
+│   │   ├── transaction_ocr_data.go   // GORM model
+│   │   ├── transaction_event.go      // GORM model
+│   │   ├── payment.go                // GORM model
+│   │   ├── refund.go                 // GORM model
+│   │   ├── lost_ticket_fee.go        // GORM model
+│   │   ├── manual_correction.go      // GORM model
+│   │   ├── zone_occupancy_log.go     // GORM model
+│   │   ├── ocr_log.go                // GORM model
+│   │   ├── user_activity_log.go      // GORM model
+│   │   ├── system_log.go             // GORM model
+│   │   ├── shift_report.go           // GORM model
+│   │   ├── daily_settlement.go       // GORM model
+│   │   └── report_cache.go           // GORM model
 │   │
 │   ├── repositories/
 │   │   ├── vehicle_repository.go
@@ -126,8 +144,7 @@ parking-system/
 │   │
 │   ├── database/
 │   │   ├── postgres.go
-│   │   ├── transaction.go
-│   │   └── migration.go
+│   │   └── transaction.go
 │   │
 │   └── helpers/
 │       ├── string.go
@@ -135,29 +152,6 @@ parking-system/
 │       ├── response.go
 │       ├── pagination.go
 │       └── hash.go
-│
-├── database/
-│   └── migrations/
-│       ├── 000001_create_vehicles_table.up.sql
-│       ├── 000001_create_vehicles_table.down.sql
-│       ├── 000002_create_zones_table.up.sql
-│       ├── 000002_create_zones_table.down.sql
-│       ├── 000003_create_parking_transactions_table.up.sql
-│       ├── 000003_create_parking_transactions_table.down.sql
-│       ├── 000004_create_payments_table.up.sql
-│       ├── 000004_create_payments_table.down.sql
-│       ├── 000005_create_ocr_logs_table.up.sql
-│       ├── 000005_create_ocr_logs_table.down.sql
-│       ├── 000006_create_zone_rates_table.up.sql
-│       ├── 000006_create_zone_rates_table.down.sql
-│       ├── 000007_create_operators_table.up.sql
-│       ├── 000007_create_operators_table.down.sql
-│       ├── 000008_create_zone_occupancy_logs_table.up.sql
-│       ├── 000008_create_zone_occupancy_logs_table.down.sql
-│       ├── 000009_create_system_settings_table.up.sql
-│       ├── 000009_create_system_settings_table.down.sql
-│       ├── 000010_add_indexes.up.sql
-│       └── 000010_add_indexes.down.sql
 │
 ├── config/
 │   ├── config.yaml
