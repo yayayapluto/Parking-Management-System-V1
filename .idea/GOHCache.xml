@@ -531,6 +531,41 @@
             </ScannedPath>
           </value>
         </entry>
+        <entry key="file://$PROJECT_DIR$/cmd/simulator/helper.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1770048461692" />
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/cmd/simulator/main.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1770049169277" />
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/cmd/simulator/master/vehicle_type.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1770048115183" />
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/cmd/simulator/utils.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1770048906697" />
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/cmd/simulator/vehicle_type.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1770050418903" />
+            </ScannedPath>
+          </value>
+        </entry>
         <entry key="file://$PROJECT_DIR$/database/seeders/seeder.go">
           <value>
             <ScannedPath>
