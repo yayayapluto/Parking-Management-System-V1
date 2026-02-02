@@ -1,15 +1,19 @@
 package app
 
 import (
+	"github.com/go-playground/validator/v10"
 	"gorm.io/gorm"
 	"parking-management-system-v1/internal/repositories"
+	"parking-management-system-v1/internal/services"
 	"parking-management-system-v1/pkg/config"
 	"parking-management-system-v1/pkg/helpers"
 )
 
 type Container struct {
-	VehicleTypeRepo repositories.VehicleTypeRepository
-	VehicleRepo     repositories.VehicleRepository
+	VehicleTypeRepo    repositories.VehicleTypeRepository
+	VehicleTypeService services.VehicleTypeService
+
+	VehicleRepo repositories.VehicleRepository
 
 	PermissionRepo repositories.PermissionRepository
 	RoleRepo       repositories.RoleRepository
@@ -51,13 +55,27 @@ type Container struct {
 }
 
 func NewContainer(db *gorm.DB, cfg *config.Config) *Container {
-	obfuscator, _ := helpers.NewHashIDManager(cfg.HashConfig.Salt, cfg.HashConfig.MinLength)
+	obfuscator, err := helpers.NewHashIDManager(cfg.HashConfig.Salt, cfg.HashConfig.MinLength)
+	if err != nil {
+		panic("Failed to init HashID: " + err.Error())
+	}
+
+	validate := validator.New()
+
+	vehicleTypeRepo := repositories.NewVehicleTypeRepository(db)
+	vehicleTypeService := services.NewVehicleTypeService(
+		vehicleTypeRepo,
+		obfuscator,
+		validate,
+	)
+
 	return &Container{
 		IDObfuscator: obfuscator,
 
 		// Group: Vehicle
-		VehicleTypeRepo: repositories.NewVehicleTypeRepository(db),
-		VehicleRepo:     repositories.NewVehicleRepository(db),
+		VehicleTypeRepo:    vehicleTypeRepo,
+		VehicleTypeService: vehicleTypeService,
+		VehicleRepo:        repositories.NewVehicleRepository(db),
 
 		// Group: Auth & User
 		PermissionRepo: repositories.NewPermissionRepository(db),

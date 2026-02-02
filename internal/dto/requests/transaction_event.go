@@ -1,3 +1,3 @@
-package dto
+package requests
 
 // TODO
