@@ -22,13 +22,17 @@ func LoadConfig() (*Config, error) {
 
 	config := &Config{
 		Postgres: PostgresConfig{
-			URI:             getEnv("POSTGRES_URI", ""),
-			Database:        getEnv("POSTGRES_DATABASE", ""),
+			URI:             getEnv("POSTGRES_URI", "postgres://user:password@localhost:5432/database?sslmode=disable"),
+			Database:        getEnv("POSTGRES_DATABASE", "any_db"),
 			ConnectTimeout:  getEnvAsInt("POSTGRES_CONNECT_TIMEOUT", 5),
 			MaxIdleTime:     getEnvAsInt("POSTGRES_MAX_IDLE_TIME", 2),
 			MaxConnLifetime: getEnvAsInt("POSTGRES_MAX_CONN_LIFETIME", 30),
 			MaxPoolSize:     uint64(getEnvAsInt("POSTGRES_MAX_POOL_SIZE", 20)),
 			MinPoolSize:     uint64(getEnvAsInt("POSTGRES_MIN_POOL_SIZE", 2)),
+		},
+		HashConfig: HashConfig{
+			Salt:      getEnv("HASH_SALT", "parkir123"),
+			MinLength: getEnvAsInt("HASH_MIN_LENGTH", 8),
 		},
 	}
 	return config, nil

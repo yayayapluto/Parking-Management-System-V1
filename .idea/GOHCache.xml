@@ -11,6 +11,13 @@
             </set>
           </value>
         </entry>
+        <entry key="Container">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/internal/app/container.go" />
+            </set>
+          </value>
+        </entry>
         <entry key="Customer">
           <value>
             <set>
@@ -29,6 +36,13 @@
           <value>
             <set>
               <option value="file://$PROJECT_DIR$/internal/models/daily_settlement.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="HashConfig">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/pkg/config/env.go" />
             </set>
           </value>
         </entry>
@@ -258,10 +272,24 @@
             </set>
           </value>
         </entry>
+        <entry key="customerRepository">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/internal/repositories/customer.go" />
+            </set>
+          </value>
+        </entry>
         <entry key="dailySettlementRepository">
           <value>
             <set>
               <option value="file://$PROJECT_DIR$/internal/repositories/daily_settlement.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="hashIDManager">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/pkg/helpers/hash_id.go" />
             </set>
           </value>
         </entry>
@@ -442,7 +470,26 @@
         <entry key="file://$PROJECT_DIR$/cmd/main.go">
           <value>
             <ScannedPath>
-              <option name="lastModified" value="1770008913475" />
+              <option name="lastModified" value="1770014533081" />
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/internal/app/app.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1770013868986" />
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/internal/app/container.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1770028193212" />
+              <option name="schema">
+                <list>
+                  <option value="Container" />
+                </list>
+              </option>
             </ScannedPath>
           </value>
         </entry>
@@ -808,6 +855,18 @@
             </ScannedPath>
           </value>
         </entry>
+        <entry key="file://$PROJECT_DIR$/internal/repositories/customer.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1770014058620" />
+              <option name="schema">
+                <list>
+                  <option value="customerRepository" />
+                </list>
+              </option>
+            </ScannedPath>
+          </value>
+        </entry>
         <entry key="file://$PROJECT_DIR$/internal/repositories/customer_regist_source.go">
           <value>
             <ScannedPath>
@@ -823,7 +882,7 @@
         <entry key="file://$PROJECT_DIR$/internal/repositories/daily_settlement.go">
           <value>
             <ScannedPath>
-              <option name="lastModified" value="1770012241921" />
+              <option name="lastModified" value="1770013583053" />
               <option name="schema">
                 <list>
                   <option value="dailySettlementRepository" />
@@ -847,7 +906,7 @@
         <entry key="file://$PROJECT_DIR$/internal/repositories/lost_ticket_fee.go">
           <value>
             <ScannedPath>
-              <option name="lastModified" value="1770012241969" />
+              <option name="lastModified" value="1770013584881" />
               <option name="schema">
                 <list>
                   <option value="lostTicketFeeRepository" />
@@ -859,7 +918,7 @@
         <entry key="file://$PROJECT_DIR$/internal/repositories/manual_correction.go">
           <value>
             <ScannedPath>
-              <option name="lastModified" value="1770012241914" />
+              <option name="lastModified" value="1770013584517" />
               <option name="schema">
                 <list>
                   <option value="manualCorrectionRepository" />
@@ -871,7 +930,7 @@
         <entry key="file://$PROJECT_DIR$/internal/repositories/ocr_log.go">
           <value>
             <ScannedPath>
-              <option name="lastModified" value="1770012241935" />
+              <option name="lastModified" value="1770013584541" />
               <option name="schema">
                 <list>
                   <option value="oCRLogRepository" />
@@ -895,7 +954,7 @@
         <entry key="file://$PROJECT_DIR$/internal/repositories/payment.go">
           <value>
             <ScannedPath>
-              <option name="lastModified" value="1770012241901" />
+              <option name="lastModified" value="1770013583022" />
               <option name="schema">
                 <list>
                   <option value="paymentRepository" />
@@ -919,7 +978,7 @@
         <entry key="file://$PROJECT_DIR$/internal/repositories/permission.go">
           <value>
             <ScannedPath>
-              <option name="lastModified" value="1770011820873" />
+              <option name="lastModified" value="1770013584531" />
               <option name="schema">
                 <list>
                   <option value="permissionRepository" />
@@ -931,7 +990,7 @@
         <entry key="file://$PROJECT_DIR$/internal/repositories/refund.go">
           <value>
             <ScannedPath>
-              <option name="lastModified" value="1770012241942" />
+              <option name="lastModified" value="1770013583111" />
               <option name="schema">
                 <list>
                   <option value="refundRepository" />
@@ -943,7 +1002,7 @@
         <entry key="file://$PROJECT_DIR$/internal/repositories/report_cache.go">
           <value>
             <ScannedPath>
-              <option name="lastModified" value="1770012241908" />
+              <option name="lastModified" value="1770013584503" />
               <option name="schema">
                 <list>
                   <option value="reportCacheRepository" />
@@ -955,7 +1014,7 @@
         <entry key="file://$PROJECT_DIR$/internal/repositories/role.go">
           <value>
             <ScannedPath>
-              <option name="lastModified" value="1770011835161" />
+              <option name="lastModified" value="1770013584523" />
               <option name="schema">
                 <list>
                   <option value="roleRepository" />
@@ -967,7 +1026,7 @@
         <entry key="file://$PROJECT_DIR$/internal/repositories/shift_report.go">
           <value>
             <ScannedPath>
-              <option name="lastModified" value="1770012241892" />
+              <option name="lastModified" value="1770013584495" />
               <option name="schema">
                 <list>
                   <option value="shiftReportRepository" />
@@ -979,7 +1038,7 @@
         <entry key="file://$PROJECT_DIR$/internal/repositories/system_log.go">
           <value>
             <ScannedPath>
-              <option name="lastModified" value="1770012241929" />
+              <option name="lastModified" value="1770013583095" />
               <option name="schema">
                 <list>
                   <option value="systemLogRepository" />
@@ -1039,7 +1098,7 @@
         <entry key="file://$PROJECT_DIR$/internal/repositories/user_activity_log.go">
           <value>
             <ScannedPath>
-              <option name="lastModified" value="1770012241955" />
+              <option name="lastModified" value="1770013583126" />
               <option name="schema">
                 <list>
                   <option value="userActivityLogRepository" />
@@ -1051,7 +1110,7 @@
         <entry key="file://$PROJECT_DIR$/internal/repositories/vehicle.go">
           <value>
             <ScannedPath>
-              <option name="lastModified" value="1770011803053" />
+              <option name="lastModified" value="1770013584550" />
               <option name="schema">
                 <list>
                   <option value="vehicleRepository" />
@@ -1063,7 +1122,7 @@
         <entry key="file://$PROJECT_DIR$/internal/repositories/vehicle_type.go">
           <value>
             <ScannedPath>
-              <option name="lastModified" value="1770011785340" />
+              <option name="lastModified" value="1770013584510" />
               <option name="schema">
                 <list>
                   <option value="vehicleTypeRepository" />
@@ -1099,7 +1158,7 @@
         <entry key="file://$PROJECT_DIR$/internal/repositories/zone_occupancy_log.go">
           <value>
             <ScannedPath>
-              <option name="lastModified" value="1770012241947" />
+              <option name="lastModified" value="1770013584871" />
               <option name="schema">
                 <list>
                   <option value="zoneOccupancyLogRepository" />
@@ -1135,18 +1194,19 @@
         <entry key="file://$PROJECT_DIR$/pkg/config/config.go">
           <value>
             <ScannedPath>
-              <option name="lastModified" value="1770008759514" />
+              <option name="lastModified" value="1770028013466" />
             </ScannedPath>
           </value>
         </entry>
         <entry key="file://$PROJECT_DIR$/pkg/config/env.go">
           <value>
             <ScannedPath>
-              <option name="lastModified" value="1770006996103" />
+              <option name="lastModified" value="1770028013969" />
               <option name="schema">
                 <list>
                   <option value="Config" />
                   <option value="PostgresConfig" />
+                  <option value="HashConfig" />
                 </list>
               </option>
             </ScannedPath>
@@ -1168,6 +1228,25 @@
           <value>
             <ScannedPath>
               <option name="lastModified" value="1770009276765" />
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/pkg/helpers/hash.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1770028013650" />
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/pkg/helpers/hash_id.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1770028103436" />
+              <option name="schema">
+                <list>
+                  <option value="hashIDManager" />
+                </list>
+              </option>
             </ScannedPath>
           </value>
         </entry>
@@ -1198,11 +1277,15 @@
       <map>
         <entry key="base_repository" value="baseRepository" />
         <entry key="config" value="Config" />
+        <entry key="container" value="Container" />
         <entry key="customer" value="Customer" />
         <entry key="customer_regist_source" value="CustomerRegistSource" />
         <entry key="customer_regist_source_repository" value="customerRegistSourceRepository" />
+        <entry key="customer_repository" value="customerRepository" />
         <entry key="daily_settlement" value="DailySettlement" />
         <entry key="daily_settlement_repository" value="dailySettlementRepository" />
+        <entry key="hash_config" value="HashConfig" />
+        <entry key="hash_id_manager" value="hashIDManager" />
         <entry key="holiday" value="Holiday" />
         <entry key="holiday_repository" value="holidayRepository" />
         <entry key="lost_ticket_fee" value="LostTicketFee" />

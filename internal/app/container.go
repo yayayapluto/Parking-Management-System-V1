@@ -3,6 +3,8 @@ package app
 import (
 	"gorm.io/gorm"
 	"parking-management-system-v1/internal/repositories"
+	"parking-management-system-v1/pkg/config"
+	"parking-management-system-v1/pkg/helpers"
 )
 
 type Container struct {
@@ -44,10 +46,15 @@ type Container struct {
 
 	DailySettlementRepo repositories.DailySettlementRepository
 	ReportCacheRepo     repositories.ReportCacheRepository
+
+	IDObfuscator helpers.IDObfuscator
 }
 
-func NewContainer(db *gorm.DB) *Container {
+func NewContainer(db *gorm.DB, cfg *config.Config) *Container {
+	obfuscator, _ := helpers.NewHashIDManager(cfg.HashConfig.Salt, cfg.HashConfig.MinLength)
 	return &Container{
+		IDObfuscator: obfuscator,
+
 		// Group: Vehicle
 		VehicleTypeRepo: repositories.NewVehicleTypeRepository(db),
 		VehicleRepo:     repositories.NewVehicleRepository(db),

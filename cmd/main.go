@@ -20,5 +20,5 @@ func main() {
 	db := app.InitDatabase(cfg)
 	defer db.Close()
 
-	_ = app.NewContainer(db.DB)
+	_ = app.NewContainer(db.DB, cfg)
 }
