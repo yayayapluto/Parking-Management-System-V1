@@ -19,4 +19,6 @@ func main() {
 	cfg, _ := config.LoadConfig()
 	db := app.InitDatabase(cfg)
 	defer db.Close()
+
+	_ = app.NewContainer(db.DB)
 }
