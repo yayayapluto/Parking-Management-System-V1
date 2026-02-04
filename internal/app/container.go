@@ -3,55 +3,64 @@ package app
 import (
 	"github.com/go-playground/validator/v10"
 	"gorm.io/gorm"
-	"parking-management-system-v1/internal/repositories"
+	"parking-management-system-v1/internal/repos"
 	"parking-management-system-v1/internal/services"
 	"parking-management-system-v1/pkg/config"
 	"parking-management-system-v1/pkg/helpers"
 )
 
 type Container struct {
-	VehicleTypeRepo    repositories.VehicleTypeRepository
+	IDObfuscator helpers.IDObfuscator
+
+	// Group: Auth & User
+	PermissionRepo repos.PermissionRepository
+	RoleRepo       repos.RoleRepository
+	UserRepo       repos.UserRepository
+
+	// Group: Vehicle
+	VehicleRepo        repos.VehicleRepository
+	VehicleTypeRepo    repos.VehicleTypeRepository
 	VehicleTypeService services.VehicleTypeService
 
-	VehicleRepo repositories.VehicleRepository
+	// Group: Zone & Rates
+	ZoneRepo        repos.ZoneRepository
+	ZoneRateRepo    repos.ZoneRateRepository
+	ZoneTypeRepo    repos.ZoneTypeRepository
+	ZoneTypeService services.ZoneTypeService
 
-	PermissionRepo repositories.PermissionRepository
-	RoleRepo       repositories.RoleRepository
-	UserRepo       repositories.UserRepository
+	// Group: Customer
+	CustomerRepo                repos.CustomerRepository
+	CustomerRegistSourceRepo    repos.CustomerRegistSourceRepository
+	CustomerRegistSourceService services.CustomerRegistSourceService
 
-	ZoneTypeRepo repositories.ZoneTypeRepository
-	ZoneRepo     repositories.ZoneRepository
-	ZoneRateRepo repositories.ZoneRateRepository
+	// Group: Payment & General
+	HolidayRepo          repos.HolidayRepository
+	HolidayService       services.HolidayService
+	PaymentMethodRepo    repos.PaymentMethodRepository
+	PaymendMethodService services.PaymentMethodService
 
-	PaymentMethodRepo repositories.PaymentMethodRepository
+	// Group: Main Transaction & Details
+	ParkingTransactionRepo repos.ParkingTransactionRepository
+	TransactionZoneRepo    repos.TransactionZoneRepository
+	TransactionOCRDataRepo repos.TransactionOCRDataRepository
+	TransactionEventRepo   repos.TransactionEventRepository
 
-	HolidayRepo repositories.HolidayRepository
+	// Group: Financials
+	PaymentRepo       repos.PaymentRepository
+	RefundRepo        repos.RefundRepository
+	LostTicketFeeRepo repos.LostTicketFeeRepository
 
-	CustomerRegistSourceRepo repositories.CustomerRegistSourceRepository
-	CustomerRepo             repositories.CustomerRepository
+	// Group: Operations & Logs
+	ManualCorrectionRepo repos.ManualCorrectionRepository
+	ShiftReportRepo      repos.ShiftReportRepository
+	ZoneOccupancyLogRepo repos.ZoneOccupancyLogRepository
+	OCRLogRepo           repos.OCRLogRepository
+	SystemLogRepo        repos.SystemLogRepository
+	UserActivityLogRepo  repos.UserActivityLogRepository
 
-	ParkingTransactionRepo repositories.ParkingTransactionRepository
-
-	TransactionZoneRepo    repositories.TransactionZoneRepository
-	TransactionOCRDataRepo repositories.TransactionOCRDataRepository
-	TransactionEventRepo   repositories.TransactionEventRepository
-
-	PaymentRepo       repositories.PaymentRepository
-	RefundRepo        repositories.RefundRepository
-	LostTicketFeeRepo repositories.LostTicketFeeRepository
-
-	OCRLogRepo          repositories.OCRLogRepository
-	UserActivityLogRepo repositories.UserActivityLogRepository
-	SystemLogRepo       repositories.SystemLogRepository
-
-	ZoneOccupancyLogRepo repositories.ZoneOccupancyLogRepository
-	ManualCorrectionRepo repositories.ManualCorrectionRepository
-	ShiftReportRepo      repositories.ShiftReportRepository
-
-	DailySettlementRepo repositories.DailySettlementRepository
-	ReportCacheRepo     repositories.ReportCacheRepository
-
-	IDObfuscator helpers.IDObfuscator
+	// Group: Reports
+	DailySettlementRepo repos.DailySettlementRepository
+	ReportCacheRepo     repos.ReportCacheRepository
 }
 
 func NewContainer(db *gorm.DB, cfg *config.Config) *Container {
@@ -62,66 +71,82 @@ func NewContainer(db *gorm.DB, cfg *config.Config) *Container {
 
 	validate := validator.New()
 
-	vehicleTypeRepo := repositories.NewVehicleTypeRepository(db)
-	vehicleTypeService := services.NewVehicleTypeService(
-		vehicleTypeRepo,
-		obfuscator,
-		validate,
-	)
+	// Initialize Repositories
+	permissionRepo := repos.NewPermissionRepository(db)
+	roleRepo := repos.NewRoleRepository(db)
+	userRepo := repos.NewUserRepository(db)
+
+	vehicleRepo := repos.NewVehicleRepository(db)
+	vehicleTypeRepo := repos.NewVehicleTypeRepository(db)
+
+	zoneRepo := repos.NewZoneRepository(db)
+	zoneRateRepo := repos.NewZoneRateRepository(db)
+	zoneTypeRepo := repos.NewZoneTypeRepository(db)
+
+	customerRepo := repos.NewCustomerRepository(db)
+	customerRegistSourceRepo := repos.NewCustomerRegistSourceRepository(db)
+
+	holidayRepo := repos.NewHolidayRepository(db)
+	paymentMethodRepo := repos.NewPaymentMethodRepository(db)
+
+	// Initialize Services
+	vehicleTypeService := services.NewVehicleTypeService(vehicleTypeRepo, obfuscator, validate)
+	zoneTypeService := services.NewZoneTypeService(zoneTypeRepo, obfuscator, validate)
+	holidayService := services.NewHolidayService(holidayRepo, obfuscator, validate)
+	customerRegistSourceService := services.NewCustomerRegistSourceService(customerRegistSourceRepo, obfuscator, validate)
+	paymentMethodService := services.NewPaymentMethodService(paymentMethodRepo, obfuscator, validate)
 
 	return &Container{
 		IDObfuscator: obfuscator,
 
+		// Group: Auth & User
+		PermissionRepo: permissionRepo,
+		RoleRepo:       roleRepo,
+		UserRepo:       userRepo,
+
 		// Group: Vehicle
+		VehicleRepo:        vehicleRepo,
 		VehicleTypeRepo:    vehicleTypeRepo,
 		VehicleTypeService: vehicleTypeService,
-		VehicleRepo:        repositories.NewVehicleRepository(db),
-
-		// Group: Auth & User
-		PermissionRepo: repositories.NewPermissionRepository(db),
-		RoleRepo:       repositories.NewRoleRepository(db),
-		UserRepo:       repositories.NewUserRepository(db),
 
 		// Group: Zone & Rates
-		ZoneTypeRepo: repositories.NewZoneTypeRepository(db),
-		ZoneRepo:     repositories.NewZoneRepository(db),
-		ZoneRateRepo: repositories.NewZoneRateRepository(db),
-
-		// Group: Payment Config
-		PaymentMethodRepo: repositories.NewPaymentMethodRepository(db),
-
-		// Group: General
-		HolidayRepo: repositories.NewHolidayRepository(db),
+		ZoneRepo:        zoneRepo,
+		ZoneRateRepo:    zoneRateRepo,
+		ZoneTypeRepo:    zoneTypeRepo,
+		ZoneTypeService: zoneTypeService,
 
 		// Group: Customer
-		CustomerRegistSourceRepo: repositories.NewCustomerRegistSourceRepository(db),
-		CustomerRepo:             repositories.NewCustomerRepository(db),
+		CustomerRepo:                customerRepo,
+		CustomerRegistSourceRepo:    customerRegistSourceRepo,
+		CustomerRegistSourceService: customerRegistSourceService,
+
+		// Group: Payment & General
+		HolidayRepo:          holidayRepo,
+		HolidayService:       holidayService,
+		PaymentMethodRepo:    paymentMethodRepo,
+		PaymendMethodService: paymentMethodService,
 
 		// Group: Main Transaction
-		ParkingTransactionRepo: repositories.NewParkingTransactionRepository(db),
-
-		// Group: Transaction Details
-		TransactionZoneRepo:    repositories.NewTransactionZoneRepository(db),
-		TransactionOCRDataRepo: repositories.NewTransactionOCRDataRepository(db),
-		TransactionEventRepo:   repositories.NewTransactionEventRepository(db),
+		ParkingTransactionRepo: repos.NewParkingTransactionRepository(db),
+		TransactionZoneRepo:    repos.NewTransactionZoneRepository(db),
+		TransactionOCRDataRepo: repos.NewTransactionOCRDataRepository(db),
+		TransactionEventRepo:   repos.NewTransactionEventRepository(db),
 
 		// Group: Financials
-		PaymentRepo:       repositories.NewPaymentRepository(db),
-		RefundRepo:        repositories.NewRefundRepository(db),
-		LostTicketFeeRepo: repositories.NewLostTicketFeeRepository(db),
+		PaymentRepo:       repos.NewPaymentRepository(db),
+		RefundRepo:        repos.NewRefundRepository(db),
+		LostTicketFeeRepo: repos.NewLostTicketFeeRepository(db),
 
-		// Group: Logs
-		OCRLogRepo:          repositories.NewOCRLogRepository(db),
-		UserActivityLogRepo: repositories.NewUserActivityLogRepository(db),
-		SystemLogRepo:       repositories.NewSystemLogRepository(db),
-
-		// Group: Operations
-		ZoneOccupancyLogRepo: repositories.NewZoneOccupancyLogRepository(db),
-		ManualCorrectionRepo: repositories.NewManualCorrectionRepository(db),
-		ShiftReportRepo:      repositories.NewShiftReportRepository(db),
+		// Group: Operations & Logs
+		ManualCorrectionRepo: repos.NewManualCorrectionRepository(db),
+		ShiftReportRepo:      repos.NewShiftReportRepository(db),
+		ZoneOccupancyLogRepo: repos.NewZoneOccupancyLogRepository(db),
+		OCRLogRepo:           repos.NewOCRLogRepository(db),
+		SystemLogRepo:        repos.NewSystemLogRepository(db),
+		UserActivityLogRepo:  repos.NewUserActivityLogRepository(db),
 
 		// Group: Reports
-		DailySettlementRepo: repositories.NewDailySettlementRepository(db),
-		ReportCacheRepo:     repositories.NewReportCacheRepository(db),
+		DailySettlementRepo: repos.NewDailySettlementRepository(db),
+		ReportCacheRepo:     repos.NewReportCacheRepository(db),
 	}
 }

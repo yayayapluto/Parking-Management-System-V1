@@ -7,7 +7,7 @@ import (
 	"parking-management-system-v1/internal/dto/requests"
 	"parking-management-system-v1/internal/dto/responses"
 	"parking-management-system-v1/internal/models"
-	"parking-management-system-v1/internal/repositories"
+	"parking-management-system-v1/internal/repos"
 	"parking-management-system-v1/pkg/helpers"
 )
 
@@ -20,12 +20,12 @@ type VehicleTypeService interface {
 }
 
 type vehicleTypeService struct {
-	repo       repositories.VehicleTypeRepository
+	repo       repos.VehicleTypeRepository
 	obfuscator helpers.IDObfuscator
 	validator  *validator.Validate
 }
 
-func NewVehicleTypeService(r repositories.VehicleTypeRepository, o helpers.IDObfuscator, v *validator.Validate) VehicleTypeService {
+func NewVehicleTypeService(r repos.VehicleTypeRepository, o helpers.IDObfuscator, v *validator.Validate) VehicleTypeService {
 	return &vehicleTypeService{repo: r, obfuscator: o, validator: v}
 }
 
