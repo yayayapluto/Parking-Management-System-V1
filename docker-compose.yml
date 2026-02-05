@@ -1,5 +1,21 @@
 services:
-  # Database
+  app:
+    build: .
+    container_name: parking-api
+    ports:
+      - "8080:8080"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    volumes:
+      - ./storage/logs:/app/storage/logs # Sinkronisasi log ke host
+    environment:
+      - DB_HOST=parking-db
+      - DB_PORT=5432
+      - DB_USER=admin_parking
+      - DB_PASSWORD=parking_password
+      - DB_NAME=parking_db
+
   postgres:
     image: postgres:16-alpine
     container_name: parking-db
@@ -17,28 +33,32 @@ services:
       timeout: 5s
       retries: 5
 
-  # Gudang Log
   loki:
     image: grafana/loki:latest
+    container_name: parking-loki
     ports:
       - "3100:3100"
     command: -config.file=/etc/loki/local-config.yaml
 
-  # Si Pengirim Log
   promtail:
     image: grafana/promtail:latest
+    container_name: parking-promtail
     volumes:
-      - ./storage/logs:/var/log/app  # Mount folder log lo ke sini
+      - ./storage/logs:/var/log/app # Membaca log dari folder yang sama dengan 'app'
       - ./promtail-config.yml:/etc/promtail/config.yml
     command: -config.file=/etc/promtail/config.yml
+    depends_on:
+      - loki
 
-  # Si Dashboard
   grafana:
     image: grafana/grafana:latest
+    container_name: parking-grafana
     ports:
       - "3000:3000"
     environment:
       - GF_SECURITY_ADMIN_PASSWORD=admin
+    depends_on:
+      - loki
 
 volumes:
   parking_data:
