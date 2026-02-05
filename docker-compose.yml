@@ -10,6 +10,7 @@ services:
     volumes:
       - ./storage/logs:/app/storage/logs # Sinkronisasi log ke host
     environment:
+      - POSTGRES_URI=postgres://admin_parking:parking_password@parking-db:5432/parking_db?sslmode=disable
       - DB_HOST=parking-db
       - DB_PORT=5432
       - DB_USER=admin_parking

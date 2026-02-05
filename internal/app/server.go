@@ -17,6 +17,8 @@ import (
 
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/recover"
+	"github.com/gofiber/swagger"
+	_ "parking-management-system-v1/docs"
 	"parking-management-system-v1/internal/routes"
 	"parking-management-system-v1/pkg/config"
 )
@@ -49,6 +51,8 @@ func NewServer(cfg *config.Config, container *container.Container) *Server {
 		Expiration: 1 * time.Minute,
 	}))
 	app.Get("/metrics", monitor.New())
+
+	app.Get("/swagger/*", swagger.HandlerDefault)
 
 	// Init Routes
 	routes.SetupRoutes(app, container)

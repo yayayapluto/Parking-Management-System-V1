@@ -28,6 +28,15 @@ func (h *VehicleTypeHandler) GetAll(ctx *fiber.Ctx) error {
 	return h.Pagination(ctx, results)
 }
 
+// Create godoc
+// @Summary      Create New Vehicle Type
+// @Tags         Vehicle Types
+// @Accept       json
+// @Produce      json
+// @Param        request body requests.CreateVehicleTypeRequest true "Vehicle Type Request"
+// @Success      201  {object}  responses.BaseResponse
+// @Failure      400  {object}  responses.BaseResponse
+// @Router       /vehicles [post]
 func (h *VehicleTypeHandler) Create(ctx *fiber.Ctx) error {
 	var req requests.CreateVehicleTypeRequest
 	if err := ctx.BodyParser(&req); err != nil {

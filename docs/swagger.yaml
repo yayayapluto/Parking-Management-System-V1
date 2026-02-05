@@ -1,0 +1,59 @@
+basePath: /api/v1
+definitions:
+  requests.CreateVehicleTypeRequest:
+    properties:
+      code:
+        maxLength: 10
+        type: string
+      description:
+        maxLength: 255
+        type: string
+      name:
+        maxLength: 50
+        type: string
+    required:
+      - code
+      - name
+    type: object
+  responses.BaseResponse:
+    properties:
+      data: { }
+      errors: { }
+      message:
+        type: string
+      success:
+        type: boolean
+    type: object
+host: localhost:8080
+info:
+  contact: { }
+  description: Dokumentasi API Sistem Manajemen Parkir.
+  title: Parking API
+  version: "1.0"
+paths:
+  /vehicles:
+    post:
+      consumes:
+        - application/json
+      parameters:
+        - description: Vehicle Type Request
+          in: body
+          name: request
+          required: true
+          schema:
+            $ref: '#/definitions/requests.CreateVehicleTypeRequest'
+      produces:
+        - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/responses.BaseResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/responses.BaseResponse'
+      summary: Create New Vehicle Type
+      tags:
+        - Vehicle Types
+swagger: "2.0"

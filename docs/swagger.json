@@ -1,0 +1,88 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "Dokumentasi API Sistem Manajemen Parkir.",
+    "title": "Parking API",
+    "contact": {},
+    "version": "1.0"
+  },
+  "host": "localhost:8080",
+  "basePath": "/api/v1",
+  "paths": {
+    "/vehicles": {
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "Vehicle Types"
+        ],
+        "summary": "Create New Vehicle Type",
+        "parameters": [
+          {
+            "description": "Vehicle Type Request",
+            "name": "request",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/requests.CreateVehicleTypeRequest"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created",
+            "schema": {
+              "$ref": "#/definitions/responses.BaseResponse"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/responses.BaseResponse"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "requests.CreateVehicleTypeRequest": {
+      "type": "object",
+      "required": [
+        "code",
+        "name"
+      ],
+      "properties": {
+        "code": {
+          "type": "string",
+          "maxLength": 10
+        },
+        "description": {
+          "type": "string",
+          "maxLength": 255
+        },
+        "name": {
+          "type": "string",
+          "maxLength": 50
+        }
+      }
+    },
+    "responses.BaseResponse": {
+      "type": "object",
+      "properties": {
+        "data": {},
+        "errors": {},
+        "message": {
+          "type": "string"
+        },
+        "success": {
+          "type": "boolean"
+        }
+      }
+    }
+  }
+}

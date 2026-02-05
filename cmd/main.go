@@ -7,6 +7,11 @@ import (
 	"parking-management-system-v1/pkg/logger"
 )
 
+// @title           Parking API
+// @version         1.0
+// @description     Dokumentasi API Sistem Manajemen Parkir.
+// @host      localhost:8080
+// @BasePath  /api/v1
 func main() {
 	traceID := logger.GenerateTraceID()
 	log := logger.WithTraceID(traceID)
