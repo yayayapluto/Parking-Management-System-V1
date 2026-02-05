@@ -66,93 +66,17 @@ type Container struct {
 }
 
 func NewContainer(db *gorm.DB, cfg *config.Config) *Container {
-	obfuscator, err := helpers.NewHashIDManager(cfg.HashConfig.Salt, cfg.HashConfig.MinLength)
-	if err != nil {
-		panic("Failed to init HashID: " + err.Error())
-	}
+	c := &Container{}
 
+	// Utils
+	obfuscator, _ := helpers.NewHashIDManager(cfg.HashConfig.Salt, cfg.HashConfig.MinLength)
 	validate := validator.NewValidator()
+	c.IDObfuscator = obfuscator
 
-	// Initialize Repositories
-	permissionRepo := repos.NewPermissionRepository(db)
-	roleRepo := repos.NewRoleRepository(db)
-	userRepo := repos.NewUserRepository(db)
+	// Layer Initialization
+	initRepositories(db, c)
+	initServices(c, obfuscator, validate)
+	initHandlers(c)
 
-	vehicleRepo := repos.NewVehicleRepository(db)
-	vehicleTypeRepo := repos.NewVehicleTypeRepository(db)
-
-	zoneRepo := repos.NewZoneRepository(db)
-	zoneRateRepo := repos.NewZoneRateRepository(db)
-	zoneTypeRepo := repos.NewZoneTypeRepository(db)
-
-	customerRepo := repos.NewCustomerRepository(db)
-	customerRegistSourceRepo := repos.NewCustomerRegistSourceRepository(db)
-
-	holidayRepo := repos.NewHolidayRepository(db)
-	paymentMethodRepo := repos.NewPaymentMethodRepository(db)
-
-	// Initialize Services
-	vehicleTypeService := services.NewVehicleTypeService(vehicleTypeRepo, obfuscator, validate)
-	zoneTypeService := services.NewZoneTypeService(zoneTypeRepo, obfuscator, validate)
-	holidayService := services.NewHolidayService(holidayRepo, obfuscator, validate)
-	customerRegistSourceService := services.NewCustomerRegistSourceService(customerRegistSourceRepo, obfuscator, validate)
-	paymentMethodService := services.NewPaymentMethodService(paymentMethodRepo, obfuscator, validate)
-
-	// Initialize Handlers
-	vehicleTypeHandler := handlers.NewVehicleTypeHandler(vehicleTypeService)
-
-	return &Container{
-		IDObfuscator: obfuscator,
-
-		// Group: Auth & User
-		PermissionRepo: permissionRepo,
-		RoleRepo:       roleRepo,
-		UserRepo:       userRepo,
-
-		// Group: Vehicle
-		VehicleRepo:        vehicleRepo,
-		VehicleTypeRepo:    vehicleTypeRepo,
-		VehicleTypeService: vehicleTypeService,
-		VehicleTypeHandler: vehicleTypeHandler,
-
-		// Group: Zone & Rates
-		ZoneRepo:        zoneRepo,
-		ZoneRateRepo:    zoneRateRepo,
-		ZoneTypeRepo:    zoneTypeRepo,
-		ZoneTypeService: zoneTypeService,
-
-		// Group: Customer
-		CustomerRepo:                customerRepo,
-		CustomerRegistSourceRepo:    customerRegistSourceRepo,
-		CustomerRegistSourceService: customerRegistSourceService,
-
-		// Group: Payment & General
-		HolidayRepo:          holidayRepo,
-		HolidayService:       holidayService,
-		PaymentMethodRepo:    paymentMethodRepo,
-		PaymendMethodService: paymentMethodService,
-
-		// Group: Main Transaction
-		ParkingTransactionRepo: repos.NewParkingTransactionRepository(db),
-		TransactionZoneRepo:    repos.NewTransactionZoneRepository(db),
-		TransactionOCRDataRepo: repos.NewTransactionOCRDataRepository(db),
-		TransactionEventRepo:   repos.NewTransactionEventRepository(db),
-
-		// Group: Financials
-		PaymentRepo:       repos.NewPaymentRepository(db),
-		RefundRepo:        repos.NewRefundRepository(db),
-		LostTicketFeeRepo: repos.NewLostTicketFeeRepository(db),
-
-		// Group: Operations & Logs
-		ManualCorrectionRepo: repos.NewManualCorrectionRepository(db),
-		ShiftReportRepo:      repos.NewShiftReportRepository(db),
-		ZoneOccupancyLogRepo: repos.NewZoneOccupancyLogRepository(db),
-		OCRLogRepo:           repos.NewOCRLogRepository(db),
-		SystemLogRepo:        repos.NewSystemLogRepository(db),
-		UserActivityLogRepo:  repos.NewUserActivityLogRepository(db),
-
-		// Group: Reports
-		DailySettlementRepo: repos.NewDailySettlementRepository(db),
-		ReportCacheRepo:     repos.NewReportCacheRepository(db),
-	}
+	return c
 }
