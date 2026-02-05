@@ -9,7 +9,56 @@
   "host": "localhost:8080",
   "basePath": "/api/v1",
   "paths": {
-    "/vehicles": {
+    "/vehicle-types": {
+      "get": {
+        "description": "Get list of vehicle types with pagination",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "Vehicle Types"
+        ],
+        "summary": "Get All Vehicle Types",
+        "parameters": [
+          {
+            "type": "integer",
+            "default": 1,
+            "description": "Page number",
+            "name": "page",
+            "in": "query"
+          },
+          {
+            "type": "integer",
+            "default": 10,
+            "description": "Items per page",
+            "name": "limit",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "description": "Search by name",
+            "name": "search",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/responses.PageResponse"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/responses.BaseResponse"
+            }
+          }
+        }
+      },
       "post": {
         "consumes": [
           "application/json"
@@ -47,6 +96,122 @@
           }
         }
       }
+    },
+    "/vehicle-types/{id}": {
+      "get": {
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "Vehicle Types"
+        ],
+        "summary": "Get Vehicle Type By ID",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "Vehicle Type Hash ID",
+            "name": "id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/responses.BaseResponse"
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "$ref": "#/definitions/responses.BaseResponse"
+            }
+          }
+        }
+      },
+      "put": {
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "Vehicle Types"
+        ],
+        "summary": "Update Vehicle Type",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "Vehicle Type Hash ID",
+            "name": "id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "description": "Update Request Body",
+            "name": "request",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/requests.UpdateVehicleTypeRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/responses.BaseResponse"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/responses.BaseResponse"
+            }
+          }
+        }
+      },
+      "delete": {
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "Vehicle Types"
+        ],
+        "summary": "Delete Vehicle Type",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "Vehicle Type Hash ID",
+            "name": "id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/responses.BaseResponse"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/responses.BaseResponse"
+            }
+          }
+        }
+      }
     }
   },
   "definitions": {
@@ -71,6 +236,26 @@
         }
       }
     },
+    "requests.UpdateVehicleTypeRequest": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string",
+          "maxLength": 10
+        },
+        "description": {
+          "type": "string",
+          "maxLength": 255
+        },
+        "is_active": {
+          "type": "boolean"
+        },
+        "name": {
+          "type": "string",
+          "maxLength": 50
+        }
+      }
+    },
     "responses.BaseResponse": {
       "type": "object",
       "properties": {
@@ -78,6 +263,79 @@
         "errors": {},
         "message": {
           "type": "string"
+        },
+        "success": {
+          "type": "boolean"
+        }
+      }
+    },
+    "responses.Meta": {
+      "type": "object",
+      "properties": {
+        "current_page": {
+          "type": "integer"
+        },
+        "current_url": {
+          "description": "Navigasi URL",
+          "type": "string"
+        },
+        "filters": {
+          "type": "object",
+          "additionalProperties": true
+        },
+        "first_page": {
+          "description": "Navigasi Angka",
+          "type": "integer"
+        },
+        "first_url": {
+          "type": "string"
+        },
+        "last_page": {
+          "type": "integer"
+        },
+        "last_url": {
+          "type": "string"
+        },
+        "limit": {
+          "type": "integer"
+        },
+        "next_page": {
+          "type": "integer"
+        },
+        "next_url": {
+          "type": "string"
+        },
+        "prev_page": {
+          "description": "Pakai pointer biar bisa null kalau gak ada",
+          "type": "integer"
+        },
+        "prev_url": {
+          "type": "string"
+        },
+        "search": {
+          "type": "string"
+        },
+        "sort": {
+          "description": "Search \u0026 Filter",
+          "type": "string"
+        },
+        "total_data": {
+          "type": "integer"
+        },
+        "total_page": {
+          "type": "integer"
+        }
+      }
+    },
+    "responses.PageResponse": {
+      "type": "object",
+      "properties": {
+        "data": {},
+        "message": {
+          "type": "string"
+        },
+        "meta": {
+          "$ref": "#/definitions/responses.Meta"
         },
         "success": {
           "type": "boolean"

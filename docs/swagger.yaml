@@ -15,12 +15,76 @@ definitions:
       - code
       - name
     type: object
+  requests.UpdateVehicleTypeRequest:
+    properties:
+      code:
+        maxLength: 10
+        type: string
+      description:
+        maxLength: 255
+        type: string
+      is_active:
+        type: boolean
+      name:
+        maxLength: 50
+        type: string
+    type: object
   responses.BaseResponse:
     properties:
       data: { }
       errors: { }
       message:
         type: string
+      success:
+        type: boolean
+    type: object
+  responses.Meta:
+    properties:
+      current_page:
+        type: integer
+      current_url:
+        description: Navigasi URL
+        type: string
+      filters:
+        additionalProperties: true
+        type: object
+      first_page:
+        description: Navigasi Angka
+        type: integer
+      first_url:
+        type: string
+      last_page:
+        type: integer
+      last_url:
+        type: string
+      limit:
+        type: integer
+      next_page:
+        type: integer
+      next_url:
+        type: string
+      prev_page:
+        description: Pakai pointer biar bisa null kalau gak ada
+        type: integer
+      prev_url:
+        type: string
+      search:
+        type: string
+      sort:
+        description: Search & Filter
+        type: string
+      total_data:
+        type: integer
+      total_page:
+        type: integer
+    type: object
+  responses.PageResponse:
+    properties:
+      data: { }
+      message:
+        type: string
+      meta:
+        $ref: '#/definitions/responses.Meta'
       success:
         type: boolean
     type: object
@@ -31,7 +95,40 @@ info:
   title: Parking API
   version: "1.0"
 paths:
-  /vehicles:
+  /vehicle-types:
+    get:
+      consumes:
+        - application/json
+      description: Get list of vehicle types with pagination
+      parameters:
+        - default: 1
+          description: Page number
+          in: query
+          name: page
+          type: integer
+        - default: 10
+          description: Items per page
+          in: query
+          name: limit
+          type: integer
+        - description: Search by name
+          in: query
+          name: search
+          type: string
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/responses.PageResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/responses.BaseResponse'
+      summary: Get All Vehicle Types
+      tags:
+        - Vehicle Types
     post:
       consumes:
         - application/json
@@ -54,6 +151,82 @@ paths:
           schema:
             $ref: '#/definitions/responses.BaseResponse'
       summary: Create New Vehicle Type
+      tags:
+        - Vehicle Types
+  /vehicle-types/{id}:
+    delete:
+      consumes:
+        - application/json
+      parameters:
+        - description: Vehicle Type Hash ID
+          in: path
+          name: id
+          required: true
+          type: string
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/responses.BaseResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/responses.BaseResponse'
+      summary: Delete Vehicle Type
+      tags:
+        - Vehicle Types
+    get:
+      consumes:
+        - application/json
+      parameters:
+        - description: Vehicle Type Hash ID
+          in: path
+          name: id
+          required: true
+          type: string
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/responses.BaseResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/responses.BaseResponse'
+      summary: Get Vehicle Type By ID
+      tags:
+        - Vehicle Types
+    put:
+      consumes:
+        - application/json
+      parameters:
+        - description: Vehicle Type Hash ID
+          in: path
+          name: id
+          required: true
+          type: string
+        - description: Update Request Body
+          in: body
+          name: request
+          required: true
+          schema:
+            $ref: '#/definitions/requests.UpdateVehicleTypeRequest'
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/responses.BaseResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/responses.BaseResponse'
+      summary: Update Vehicle Type
       tags:
         - Vehicle Types
 swagger: "2.0"
