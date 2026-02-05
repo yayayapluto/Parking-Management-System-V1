@@ -1,13 +1,13 @@
 package container
 
 import (
-	"github.com/go-playground/validator/v10"
 	"gorm.io/gorm"
 	"parking-management-system-v1/internal/handlers"
 	"parking-management-system-v1/internal/repos"
 	"parking-management-system-v1/internal/services"
 	"parking-management-system-v1/pkg/config"
 	"parking-management-system-v1/pkg/helpers"
+	"parking-management-system-v1/pkg/validator"
 )
 
 type Container struct {
@@ -71,7 +71,7 @@ func NewContainer(db *gorm.DB, cfg *config.Config) *Container {
 		panic("Failed to init HashID: " + err.Error())
 	}
 
-	validate := validator.New()
+	validate := validator.NewValidator()
 
 	// Initialize Repositories
 	permissionRepo := repos.NewPermissionRepository(db)

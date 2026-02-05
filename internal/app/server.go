@@ -2,6 +2,7 @@ package app
 
 import (
 	"errors"
+	"github.com/go-playground/validator/v10"
 	"github.com/gofiber/fiber/v2/middleware/cors"
 	"github.com/gofiber/fiber/v2/middleware/limiter"
 	"github.com/gofiber/fiber/v2/middleware/logger"
@@ -14,6 +15,8 @@ import (
 	"parking-management-system-v1/internal/dto/responses"
 	"syscall"
 	"time"
+
+	customValidator "parking-management-system-v1/pkg/validator"
 
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/recover"
@@ -90,20 +93,37 @@ func (s *Server) Run() {
 }
 
 func globalErrorHandler(ctx *fiber.Ctx, err error) error {
-	// Status code default (Internal Server Error)
 	code := fiber.StatusInternalServerError
+	message := "An error occurred"
+	var errorData interface{} = err.Error()
 
-	// Cek jika error-nya adalah Fiber Error (misal 404 Not Found atau 400 Bad Request)
+	// 1. Tangkap Validator Errors
+	var valErrors validator.ValidationErrors
+	if errors.As(err, &valErrors) {
+		code = fiber.StatusBadRequest
+		message = "Validation failed" // Tambahin biar jelas di response
+		errFields := make(map[string]string)
+
+		for _, e := range valErrors {
+			// PANGGIL PAKE ALIAS: customValidator.Trans
+			errFields[e.Field()] = e.Translate(customValidator.Trans)
+		}
+		errorData = errFields
+	}
+
+	// 2. Cek kalau ini Error dari Fiber
 	var e *fiber.Error
 	if errors.As(err, &e) {
 		code = e.Code
+		if code == fiber.StatusUnprocessableEntity {
+			code = fiber.StatusBadRequest
+		}
 	}
 
-	// Response seragam pakai BaseResponse
 	return ctx.Status(code).JSON(responses.BaseResponse{
 		Success: false,
-		Message: "An error occurred",
+		Message: message,
 		Data:    nil,
-		Errors:  err.Error(),
+		Errors:  errorData,
 	})
 }

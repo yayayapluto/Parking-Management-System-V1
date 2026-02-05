@@ -20,5 +20,7 @@ func SetupRoutes(fb *fiber.App, c *container.Container) {
 	vt.Get("/info", DiscoveryHandler(fb)) // Discovery level vehicle-types
 	vt.Get("/", c.VehicleTypeHandler.GetAll)
 	vt.Post("/", c.VehicleTypeHandler.Create)
-	vt.Get("/{id}", c.VehicleTypeHandler.GetByID)
+	vt.Get("/:id", c.VehicleTypeHandler.GetByID)
+	vt.Put("/:id", c.VehicleTypeHandler.Update)
+	vt.Delete("/:id", c.VehicleTypeHandler.Delete)
 }
