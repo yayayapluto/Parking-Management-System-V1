@@ -5,7 +5,7 @@ export $(shell sed 's/=.*//' .env)
 APP_NAME=parking-api
 COMPOSE=docker-compose
 
-.PHONY: dev docker-dev build down logs refresh seed help docs
+.PHONY: watch dev docker-dev build down logs refresh seed help docs
 
 help:
 	@clear
@@ -18,6 +18,13 @@ help:
 	@printf "  make down         : Stop all containers\n"
 	@printf "  make docs         : Generate Swagger only\n"
 	@printf "----------------------------------------------------------\n"
+
+watch: docs
+	@clear
+	@printf "\033[1;36m>>> STARTING INFRASTRUCTURE\033[0m\n"
+	@$(COMPOSE) up -d postgres loki promtail grafana
+	@printf "\033[1;33m>>> STARTING AIR (HOT RELOAD)...\033[0m\n"
+	@air
 
 # --- MODE 1: HYBRID (Development Harian) ---
 dev: docs

@@ -2,3 +2,5 @@
 .env
 storage/logs/*.log
 storage/logs/*.gz
+*.log
+*.exe
