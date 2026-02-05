@@ -15,6 +15,17 @@ definitions:
       - code
       - name
     type: object
+  requests.CreateZoneTypeRequest:
+    properties:
+      description:
+        maxLength: 255
+        type: string
+      name:
+        maxLength: 50
+        type: string
+    required:
+      - name
+    type: object
   requests.UpdateVehicleTypeRequest:
     properties:
       code:
@@ -25,6 +36,15 @@ definitions:
         type: string
       is_active:
         type: boolean
+      name:
+        maxLength: 50
+        type: string
+    type: object
+  requests.UpdateZoneTypeRequest:
+    properties:
+      description:
+        maxLength: 255
+        type: string
       name:
         maxLength: 50
         type: string
@@ -229,4 +249,138 @@ paths:
       summary: Update Vehicle Type
       tags:
         - Vehicle Types
+  /zone-types:
+    get:
+      consumes:
+        - application/json
+      description: Get list of zone types with pagination
+      parameters:
+        - default: 1
+          description: Page number
+          in: query
+          name: page
+          type: integer
+        - default: 10
+          description: Items per page
+          in: query
+          name: limit
+          type: integer
+        - description: Search by name
+          in: query
+          name: search
+          type: string
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/responses.PageResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/responses.BaseResponse'
+      summary: Get All Zone Types
+      tags:
+        - Zone Types
+    post:
+      consumes:
+        - application/json
+      parameters:
+        - description: Zone Type Request
+          in: body
+          name: request
+          required: true
+          schema:
+            $ref: '#/definitions/requests.CreateZoneTypeRequest'
+      produces:
+        - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/responses.BaseResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/responses.BaseResponse'
+      summary: Create New Zone Type
+      tags:
+        - Zone Types
+  /zone-types/{id}:
+    delete:
+      consumes:
+        - application/json
+      parameters:
+        - description: Zone Type Hash ID
+          in: path
+          name: id
+          required: true
+          type: string
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/responses.BaseResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/responses.BaseResponse'
+      summary: Delete Zone Type
+      tags:
+        - Zone Types
+    get:
+      consumes:
+        - application/json
+      parameters:
+        - description: Zone Type Hash ID
+          in: path
+          name: id
+          required: true
+          type: string
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/responses.BaseResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/responses.BaseResponse'
+      summary: Get Zone Type By ID
+      tags:
+        - Zone Types
+    put:
+      consumes:
+        - application/json
+      parameters:
+        - description: Zone Type Hash ID
+          in: path
+          name: id
+          required: true
+          type: string
+        - description: Update Request Body
+          in: body
+          name: request
+          required: true
+          schema:
+            $ref: '#/definitions/requests.UpdateZoneTypeRequest'
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/responses.BaseResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/responses.BaseResponse'
+      summary: Update Zone Type
+      tags:
+        - Zone Types
 swagger: "2.0"

@@ -6,5 +6,5 @@ import (
 
 func initHandlers(c *Container) {
 	c.VehicleTypeHandler = handlers.NewVehicleTypeHandler(c.VehicleTypeService)
-	// Nanti ZoneTypeHandler dll masuk sini
+	c.ZoneTypeHandler = handlers.NewZoneTypeHandler(c.ZoneTypeService)
 }

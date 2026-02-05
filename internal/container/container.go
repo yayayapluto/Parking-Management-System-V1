@@ -29,6 +29,7 @@ type Container struct {
 	ZoneRateRepo    repos.ZoneRateRepository
 	ZoneTypeRepo    repos.ZoneTypeRepository
 	ZoneTypeService services.ZoneTypeService
+	ZoneTypeHandler *handlers.ZoneTypeHandler
 
 	// Group: Customer
 	CustomerRepo                repos.CustomerRepository

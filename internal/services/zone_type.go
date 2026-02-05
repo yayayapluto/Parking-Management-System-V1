@@ -12,7 +12,7 @@ import (
 )
 
 type ZoneTypeService interface {
-	GetAll(ctx context.Context, p requests.PaginationRequest) (responses.PageResponse, error)
+	GetAll(ctx context.Context, p requests.PaginationRequest, url string) (responses.PageResponse, error)
 	GetByID(ctx context.Context, hashedID string) (responses.ZoneTypeResponse, error)
 	Create(ctx context.Context, req requests.CreateZoneTypeRequest) (responses.ZoneTypeResponse, error)
 	Update(ctx context.Context, hashedID string, req requests.UpdateZoneTypeRequest) (responses.ZoneTypeResponse, error)
@@ -25,7 +25,7 @@ type zoneTypeService struct {
 	validator  *validator.Validate
 }
 
-func (s *zoneTypeService) GetAll(ctx context.Context, p requests.PaginationRequest) (responses.PageResponse, error) {
+func (s *zoneTypeService) GetAll(ctx context.Context, p requests.PaginationRequest, url string) (responses.PageResponse, error) {
 	mdls, total, err := s.repo.GetWithPagination(ctx, p, "name")
 	if err != nil {
 		return responses.PageResponse{}, err
@@ -40,7 +40,7 @@ func (s *zoneTypeService) GetAll(ctx context.Context, p requests.PaginationReque
 		Success:    true,
 		Message:    "Zone types retrieved successfully",
 		Data:       list,
-		Pagination: responses.CreateMeta(p, total, ""),
+		Pagination: responses.CreateMeta(p, total, url),
 	}, nil
 }
 
