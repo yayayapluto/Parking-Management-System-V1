@@ -72,8 +72,8 @@ func (h *VehicleTypeHandler) Create(ctx *fiber.Ctx) error {
 // @Success      200  {object}  responses.BaseResponse
 // @Failure      404  {object}  responses.BaseResponse
 // @Router       /vehicle-types/{id} [get]
-func (h *VehicleTypeHandler) GetByID(ctx *fiber.Ctx, hashId string) error {
-	res, err := h.service.GetByID(ctx.Context(), hashId)
+func (h *VehicleTypeHandler) GetByID(ctx *fiber.Ctx) error {
+	res, err := h.service.GetByID(ctx.Context(), ctx.Params("id"))
 	if err != nil {
 		return err
 	}
@@ -91,13 +91,13 @@ func (h *VehicleTypeHandler) GetByID(ctx *fiber.Ctx, hashId string) error {
 // @Success      200  {object}  responses.BaseResponse
 // @Failure      400  {object}  responses.BaseResponse
 // @Router       /vehicle-types/{id} [put]
-func (h *VehicleTypeHandler) Update(ctx *fiber.Ctx, hashId string) error {
+func (h *VehicleTypeHandler) Update(ctx *fiber.Ctx) error {
 	var req requests.UpdateVehicleTypeRequest
 	if err := ctx.BodyParser(&req); err != nil {
 		return err
 	}
 
-	res, err := h.service.Update(ctx.Context(), hashId, req)
+	res, err := h.service.Update(ctx.Context(), ctx.Params("id"), req)
 	if err != nil {
 		return err
 	}
@@ -114,9 +114,9 @@ func (h *VehicleTypeHandler) Update(ctx *fiber.Ctx, hashId string) error {
 // @Success      200  {object}  responses.BaseResponse
 // @Failure      400  {object}  responses.BaseResponse
 // @Router       /vehicle-types/{id} [delete]
-func (h *VehicleTypeHandler) Delete(ctx *fiber.Ctx, hashId string) error {
-	if err := h.service.Delete(ctx.Context(), hashId); err != nil {
+func (h *VehicleTypeHandler) Delete(ctx *fiber.Ctx) error {
+	if err := h.service.Delete(ctx.Context(), ctx.Params("id")); err != nil {
 		return err
 	}
-	return h.Success(ctx, hashId, "Vehicle type deleted successfully")
+	return h.Success(ctx, nil, "Vehicle type deleted successfully")
 }
