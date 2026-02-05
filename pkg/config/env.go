@@ -1,8 +1,14 @@
 package config
 
 type Config struct {
+	AppConfig  AppConfig      `json:"app_config"`
 	Postgres   PostgresConfig `json:"postgres"`
 	HashConfig HashConfig     `json:"hash"`
+}
+
+type AppConfig struct {
+	AppHost string `json:"app_host"`
+	AppPort string `json:"app_port"`
 }
 
 type PostgresConfig struct {

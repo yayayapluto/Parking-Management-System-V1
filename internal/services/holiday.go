@@ -50,7 +50,7 @@ func (s *holidayService) GetAll(ctx context.Context, p requests.PaginationReques
 		Success:    true,
 		Message:    "Holidays retrieved successfully",
 		Data:       list,
-		Pagination: responses.CreateMeta(p, total),
+		Pagination: responses.CreateMeta(p, total, ""),
 	}, nil
 }
 

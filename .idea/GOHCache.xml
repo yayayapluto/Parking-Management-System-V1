@@ -3,6 +3,20 @@
   <component name="GoORMHelperCache">
     <option name="schemaMapping">
       <map>
+        <entry key="AppConfig">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/pkg/config/env.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="BaseHandler">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/internal/handlers/base.go" />
+            </set>
+          </value>
+        </entry>
         <entry key="BaseResponse">
           <value>
             <set>
@@ -21,6 +35,7 @@
           <value>
             <set>
               <option value="file://$PROJECT_DIR$/internal/app/container.go" />
+              <option value="file://$PROJECT_DIR$/internal/container/container.go" />
             </set>
           </value>
         </entry>
@@ -234,6 +249,21 @@
             </set>
           </value>
         </entry>
+        <entry key="RouteInfo">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/internal/app/discovery.go" />
+              <option value="file://$PROJECT_DIR$/internal/routes/discovery.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="Server">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/internal/app/server.go" />
+            </set>
+          </value>
+        </entry>
         <entry key="ShiftReport">
           <value>
             <set>
@@ -336,6 +366,13 @@
           <value>
             <set>
               <option value="file://$PROJECT_DIR$/internal/models/vehicle_type.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="VehicleTypeHandler">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/internal/handlers/vehicle_type.go" />
             </set>
           </value>
         </entry>
@@ -626,7 +663,7 @@
         <entry key="file://$PROJECT_DIR$/cmd/main.go">
           <value>
             <ScannedPath>
-              <option name="lastModified" value="1770028220718" />
+              <option name="lastModified" value="1770266412507" />
             </ScannedPath>
           </value>
         </entry>
@@ -675,7 +712,7 @@
         <entry key="file://$PROJECT_DIR$/internal/app/container.go">
           <value>
             <ScannedPath>
-              <option name="lastModified" value="1770246837661" />
+              <option name="lastModified" value="1770264828540" />
               <option name="schema">
                 <list>
                   <option value="Container" />
@@ -688,6 +725,42 @@
           <value>
             <ScannedPath>
               <option name="lastModified" value="1770008820037" />
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/internal/app/discovery.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1770267356923" />
+              <option name="schema">
+                <list>
+                  <option value="RouteInfo" />
+                </list>
+              </option>
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/internal/app/server.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1770267030055" />
+              <option name="schema">
+                <list>
+                  <option value="Server" />
+                </list>
+              </option>
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/internal/container/container.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1770265700679" />
+              <option name="schema">
+                <list>
+                  <option value="Container" />
+                </list>
+              </option>
             </ScannedPath>
           </value>
         </entry>
@@ -755,7 +828,7 @@
         <entry key="file://$PROJECT_DIR$/internal/dto/requests/pagination.go">
           <value>
             <ScannedPath>
-              <option name="lastModified" value="1770045829864" />
+              <option name="lastModified" value="1770265815502" />
               <option name="schema">
                 <list>
                   <option value="PaginationRequest" />
@@ -925,7 +998,7 @@
         <entry key="file://$PROJECT_DIR$/internal/dto/responses/base.go">
           <value>
             <ScannedPath>
-              <option name="lastModified" value="1770046473514" />
+              <option name="lastModified" value="1770268344446" />
               <option name="schema">
                 <list>
                   <option value="BaseResponse" />
@@ -1145,6 +1218,30 @@
               <option name="schema">
                 <list>
                   <option value="ZoneTypeResponse" />
+                </list>
+              </option>
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/internal/handlers/base.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1770268197289" />
+              <option name="schema">
+                <list>
+                  <option value="BaseHandler" />
+                </list>
+              </option>
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/internal/handlers/vehicle_type.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1770268526880" />
+              <option name="schema">
+                <list>
+                  <option value="VehicleTypeHandler" />
                 </list>
               </option>
             </ScannedPath>
@@ -1810,10 +1907,29 @@
             </ScannedPath>
           </value>
         </entry>
+        <entry key="file://$PROJECT_DIR$/internal/routes/api.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1770268197282" />
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/internal/routes/discovery.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1770267766494" />
+              <option name="schema">
+                <list>
+                  <option value="RouteInfo" />
+                </list>
+              </option>
+            </ScannedPath>
+          </value>
+        </entry>
         <entry key="file://$PROJECT_DIR$/internal/services/customer_regist_source.go">
           <value>
             <ScannedPath>
-              <option name="lastModified" value="1770074066858" />
+              <option name="lastModified" value="1770268590273" />
               <option name="schema">
                 <list>
                   <option value="customerRegistSourceService" />
@@ -1825,7 +1941,7 @@
         <entry key="file://$PROJECT_DIR$/internal/services/holiday.go">
           <value>
             <ScannedPath>
-              <option name="lastModified" value="1770074004598" />
+              <option name="lastModified" value="1770268590255" />
               <option name="schema">
                 <list>
                   <option value="holidayService" />
@@ -1837,7 +1953,7 @@
         <entry key="file://$PROJECT_DIR$/internal/services/payment_method.go">
           <value>
             <ScannedPath>
-              <option name="lastModified" value="1770073666284" />
+              <option name="lastModified" value="1770268590244" />
               <option name="schema">
                 <list>
                   <option value="paymentMethodService" />
@@ -1849,7 +1965,7 @@
         <entry key="file://$PROJECT_DIR$/internal/services/vehicle_type.go">
           <value>
             <ScannedPath>
-              <option name="lastModified" value="1770246648836" />
+              <option name="lastModified" value="1770268526886" />
               <option name="schema">
                 <list>
                   <option value="vehicleTypeService" />
@@ -1861,7 +1977,7 @@
         <entry key="file://$PROJECT_DIR$/internal/services/zone_type.go">
           <value>
             <ScannedPath>
-              <option name="lastModified" value="1770073454129" />
+              <option name="lastModified" value="1770268590264" />
               <option name="schema">
                 <list>
                   <option value="zoneTypeService" />
@@ -1873,17 +1989,18 @@
         <entry key="file://$PROJECT_DIR$/pkg/config/config.go">
           <value>
             <ScannedPath>
-              <option name="lastModified" value="1770028318640" />
+              <option name="lastModified" value="1770266238296" />
             </ScannedPath>
           </value>
         </entry>
         <entry key="file://$PROJECT_DIR$/pkg/config/env.go">
           <value>
             <ScannedPath>
-              <option name="lastModified" value="1770028013969" />
+              <option name="lastModified" value="1770265046155" />
               <option name="schema">
                 <list>
                   <option value="Config" />
+                  <option value="AppConfig" />
                   <option value="PostgresConfig" />
                   <option value="HashConfig" />
                 </list>
@@ -1910,6 +2027,20 @@
             </ScannedPath>
           </value>
         </entry>
+        <entry key="file://$PROJECT_DIR$/pkg/errors/errors.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1770266848704" />
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/pkg/errors/handler.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1770264598816" />
+            </ScannedPath>
+          </value>
+        </entry>
         <entry key="file://$PROJECT_DIR$/pkg/helpers/hash_id.go">
           <value>
             <ScannedPath>
@@ -1922,10 +2053,17 @@
             </ScannedPath>
           </value>
         </entry>
+        <entry key="file://$PROJECT_DIR$/pkg/helpers/pagination.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1770264332952" />
+            </ScannedPath>
+          </value>
+        </entry>
         <entry key="file://$PROJECT_DIR$/pkg/logger/logger.go">
           <value>
             <ScannedPath>
-              <option name="lastModified" value="1770008913303" />
+              <option name="lastModified" value="1770269009037" />
               <option name="schema">
                 <list>
                   <option value="RequestData" />
@@ -1943,6 +2081,13 @@
             </ScannedPath>
           </value>
         </entry>
+        <entry key="file://$PROJECT_DIR$/scripts/refresh.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1770269149548" />
+            </ScannedPath>
+          </value>
+        </entry>
         <entry key="file://$PROJECT_DIR$/scripts/seed.go">
           <value>
             <ScannedPath>
@@ -1954,6 +2099,8 @@
     </option>
     <option name="tableStructMapping">
       <map>
+        <entry key="app_config" value="AppConfig" />
+        <entry key="base_handler" value="BaseHandler" />
         <entry key="base_repository" value="baseRepository" />
         <entry key="base_response" value="BaseResponse" />
         <entry key="config" value="Config" />
@@ -2006,6 +2153,8 @@
         <entry key="response_data" value="ResponseData" />
         <entry key="role" value="Role" />
         <entry key="role_repository" value="roleRepository" />
+        <entry key="route_info" value="RouteInfo" />
+        <entry key="server" value="Server" />
         <entry key="shift_report" value="ShiftReport" />
         <entry key="shift_report_repository" value="shiftReportRepository" />
         <entry key="slog_logger" value="SlogLogger" />
@@ -2029,6 +2178,7 @@
         <entry key="vehicle" value="Vehicle" />
         <entry key="vehicle_repository" value="vehicleRepository" />
         <entry key="vehicle_type" value="VehicleType" />
+        <entry key="vehicle_type_handler" value="VehicleTypeHandler" />
         <entry key="vehicle_type_repository" value="vehicleTypeRepository" />
         <entry key="vehicle_type_response" value="VehicleTypeResponse" />
         <entry key="vehicle_type_service" value="vehicleTypeService" />

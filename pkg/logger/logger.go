@@ -4,8 +4,11 @@ import (
 	"context"
 	"crypto/rand"
 	"encoding/hex"
+	"gopkg.in/natefinch/lumberjack.v2"
+	"io"
 	"log/slog"
 	"os"
+	"path/filepath"
 	"sync"
 )
 
@@ -41,11 +44,27 @@ var (
 
 func GetInstance() Logger {
 	once.Do(func() {
-		// Menggunakan JSON Handler sebagai standar output
-		h := slog.NewJSONHandler(os.Stdout, &slog.HandlerOptions{
+		// 1. Pastikan folder storage/logs ada
+		logDir := filepath.Join("storage", "logs")
+		_ = os.MkdirAll(logDir, 0755)
+		logFilePath := filepath.Join(logDir, "app.log")
+
+		// 2. Setup Lumberjack untuk Log Rotation
+		fileLogger := &lumberjack.Logger{
+			Filename:   logFilePath,
+			MaxSize:    50,   // 50 Megabytes
+			MaxBackups: 5,    // Simpan 5 file cadangan
+			MaxAge:     30,   // Simpan selama 30 hari
+			Compress:   true, // Kompres jadi .gz
+		}
+
+		// 3. Gabungkan Output: Terminal (Stdout) + File
+		multiWriter := io.MultiWriter(os.Stdout, fileLogger)
+
+		// 4. Inisialisasi JSON Handler
+		h := slog.NewJSONHandler(multiWriter, &slog.HandlerOptions{
 			Level: slog.LevelDebug,
 			ReplaceAttr: func(groups []string, a slog.Attr) slog.Attr {
-				// Mengubah key "level" agar sesuai ekspektasi Anda (integer)
 				if a.Key == slog.LevelKey {
 					level := a.Value.Any().(slog.Level)
 					switch level {
@@ -57,7 +76,6 @@ func GetInstance() Logger {
 						return slog.Int("level", 50)
 					}
 				}
-				// Mengubah "msg" menjadi "msg" (tetap) dan "time" ke milidetik jika perlu
 				return a
 			},
 		})

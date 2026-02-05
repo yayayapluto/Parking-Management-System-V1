@@ -40,7 +40,7 @@ func (s *zoneTypeService) GetAll(ctx context.Context, p requests.PaginationReque
 		Success:    true,
 		Message:    "Zone types retrieved successfully",
 		Data:       list,
-		Pagination: responses.CreateMeta(p, total),
+		Pagination: responses.CreateMeta(p, total, ""),
 	}, nil
 }
 

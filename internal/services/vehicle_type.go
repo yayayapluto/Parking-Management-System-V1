@@ -12,7 +12,7 @@ import (
 )
 
 type VehicleTypeService interface {
-	GetAll(ctx context.Context, p requests.PaginationRequest) (responses.PageResponse, error)
+	GetAll(ctx context.Context, p requests.PaginationRequest, url string) (responses.PageResponse, error)
 	GetByID(ctx context.Context, hashedID string) (responses.VehicleTypeResponse, error)
 	Create(ctx context.Context, req requests.CreateVehicleTypeRequest) (responses.VehicleTypeResponse, error)
 	Update(ctx context.Context, hashedID string, req requests.UpdateVehicleTypeRequest) (responses.VehicleTypeResponse, error)
@@ -31,9 +31,9 @@ func NewVehicleTypeService(r repos.VehicleTypeRepository, o helpers.IDObfuscator
 
 // --- CORE METHODS ---
 
-func (s *vehicleTypeService) GetAll(ctx context.Context, p requests.PaginationRequest) (responses.PageResponse, error) {
+func (s *vehicleTypeService) GetAll(ctx context.Context, req requests.PaginationRequest, url string) (responses.PageResponse, error) {
 	// Panggil repo dengan searchable columns: code dan name
-	mdls, total, err := s.repo.GetWithPagination(ctx, p, "code", "name")
+	mdls, total, err := s.repo.GetWithPagination(ctx, req, "code", "name")
 	if err != nil {
 		return responses.PageResponse{}, err
 	}
@@ -47,7 +47,7 @@ func (s *vehicleTypeService) GetAll(ctx context.Context, p requests.PaginationRe
 		Success:    true,
 		Message:    "Vehicle types retrieved successfully",
 		Data:       list,
-		Pagination: responses.CreateMeta(p, total),
+		Pagination: responses.CreateMeta(req, total, url),
 	}, nil
 }
 

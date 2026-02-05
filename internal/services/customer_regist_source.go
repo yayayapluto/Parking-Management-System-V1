@@ -48,7 +48,7 @@ func (s *customerRegistSourceService) GetAll(ctx context.Context, p requests.Pag
 		Success:    true,
 		Message:    "Registration sources retrieved successfully",
 		Data:       list,
-		Pagination: responses.CreateMeta(p, total),
+		Pagination: responses.CreateMeta(p, total, ""),
 	}, nil
 }
 

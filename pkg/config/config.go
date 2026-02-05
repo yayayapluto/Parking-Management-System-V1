@@ -3,24 +3,24 @@ package config
 import (
 	"github.com/joho/godotenv"
 	"os"
-	"parking-management-system-v1/pkg/logger" // import logger
+	"parking-management-system-v1/pkg/logger"
 	"strconv"
 )
 
 func LoadConfig() (*Config, error) {
-	_ = godotenv.Load()
-
-	if os.Getenv("APP_ENV") == "development" {
-		paths := []string{".env", "../.env", "../../.env", "../../../.env"}
-		for _, path := range paths {
-			if err := godotenv.Load(path); err == nil {
-				logger.Info("Environment file loaded", "config-load", map[string]interface{}{"path": path})
-				break
-			}
+	paths := []string{".env", "../.env", "../../.env", "../../../.env"}
+	for _, path := range paths {
+		if err := godotenv.Load(path); err == nil {
+			logger.Info("Environment file loaded", "config-load", map[string]interface{}{"path": path})
+			break
 		}
 	}
 
 	config := &Config{
+		AppConfig: AppConfig{
+			AppHost: getEnv("APP_HOST", "localhost"),
+			AppPort: getEnv("APP_PORT", "8080"),
+		},
 		Postgres: PostgresConfig{
 			URI:             getEnv("POSTGRES_URI", "postgres://user:password@localhost:5432/database?sslmode=disable"),
 			Database:        getEnv("POSTGRES_DATABASE", "any_db"),

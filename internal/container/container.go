@@ -1,8 +1,9 @@
-package app
+package container
 
 import (
 	"github.com/go-playground/validator/v10"
 	"gorm.io/gorm"
+	"parking-management-system-v1/internal/handlers"
 	"parking-management-system-v1/internal/repos"
 	"parking-management-system-v1/internal/services"
 	"parking-management-system-v1/pkg/config"
@@ -21,6 +22,7 @@ type Container struct {
 	VehicleRepo        repos.VehicleRepository
 	VehicleTypeRepo    repos.VehicleTypeRepository
 	VehicleTypeService services.VehicleTypeService
+	VehicleTypeHandler *handlers.VehicleTypeHandler
 
 	// Group: Zone & Rates
 	ZoneRepo        repos.ZoneRepository
@@ -96,6 +98,9 @@ func NewContainer(db *gorm.DB, cfg *config.Config) *Container {
 	customerRegistSourceService := services.NewCustomerRegistSourceService(customerRegistSourceRepo, obfuscator, validate)
 	paymentMethodService := services.NewPaymentMethodService(paymentMethodRepo, obfuscator, validate)
 
+	// Initialize Handlers
+	vehicleTypeHandler := handlers.NewVehicleTypeHandler(vehicleTypeService)
+
 	return &Container{
 		IDObfuscator: obfuscator,
 
@@ -108,6 +113,7 @@ func NewContainer(db *gorm.DB, cfg *config.Config) *Container {
 		VehicleRepo:        vehicleRepo,
 		VehicleTypeRepo:    vehicleTypeRepo,
 		VehicleTypeService: vehicleTypeService,
+		VehicleTypeHandler: vehicleTypeHandler,
 
 		// Group: Zone & Rates
 		ZoneRepo:        zoneRepo,

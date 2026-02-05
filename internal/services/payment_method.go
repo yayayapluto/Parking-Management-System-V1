@@ -49,7 +49,7 @@ func (s *paymentMethodService) GetAll(ctx context.Context, p requests.Pagination
 		Success:    true,
 		Message:    "Payment methods retrieved successfully",
 		Data:       list,
-		Pagination: responses.CreateMeta(p, total),
+		Pagination: responses.CreateMeta(p, total, ""),
 	}, nil
 }
 
