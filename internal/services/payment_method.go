@@ -13,7 +13,7 @@ import (
 )
 
 type PaymentMethodService interface {
-	GetAll(ctx context.Context, p requests.PaginationRequest) (responses.PageResponse, error)
+	GetAll(ctx context.Context, p requests.PaginationRequest, url string) (responses.PageResponse, error)
 	GetByID(ctx context.Context, hashedID string) (responses.PaymentMethodResponse, error)
 	Create(ctx context.Context, req requests.CreatePaymentMethodRequest) (responses.PaymentMethodResponse, error)
 	Update(ctx context.Context, hashedID string, req requests.UpdatePaymentMethodRequest) (responses.PaymentMethodResponse, error)
@@ -34,7 +34,7 @@ func NewPaymentMethodService(r repos.PaymentMethodRepository, o helpers.IDObfusc
 	}
 }
 
-func (s *paymentMethodService) GetAll(ctx context.Context, p requests.PaginationRequest) (responses.PageResponse, error) {
+func (s *paymentMethodService) GetAll(ctx context.Context, p requests.PaginationRequest, url string) (responses.PageResponse, error) {
 	mdls, total, err := s.repo.GetWithPagination(ctx, p, "name")
 	if err != nil {
 		return responses.PageResponse{}, err
@@ -49,7 +49,7 @@ func (s *paymentMethodService) GetAll(ctx context.Context, p requests.Pagination
 		Success:    true,
 		Message:    "Payment methods retrieved successfully",
 		Data:       list,
-		Pagination: responses.CreateMeta(p, total, ""),
+		Pagination: responses.CreateMeta(p, total, url),
 	}, nil
 }
 

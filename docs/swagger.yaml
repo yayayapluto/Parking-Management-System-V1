@@ -1,5 +1,50 @@
 basePath: /api/v1
 definitions:
+  requests.CreateCustomerRegistSourceRequest:
+    properties:
+      description:
+        maxLength: 1000
+        type: string
+      name:
+        maxLength: 50
+        type: string
+    required:
+      - name
+    type: object
+  requests.CreateHolidayRequest:
+    properties:
+      affects_rates:
+        minimum: 0
+        type: number
+      date:
+        example: "2026-01-01"
+        type: string
+      name:
+        maxLength: 100
+        type: string
+    required:
+      - date
+      - name
+    type: object
+  requests.CreatePaymentMethodRequest:
+    properties:
+      code:
+        maxLength: 20
+        type: string
+      config:
+        description: Kita terima sebagai slice string biasa
+        items:
+          type: string
+        type: array
+      is_active:
+        type: boolean
+      name:
+        maxLength: 50
+        type: string
+    required:
+      - code
+      - name
+    type: object
   requests.CreateVehicleTypeRequest:
     properties:
       code:
@@ -20,6 +65,38 @@ definitions:
       description:
         maxLength: 255
         type: string
+      name:
+        maxLength: 50
+        type: string
+    required:
+      - name
+    type: object
+  requests.UpdateCustomerRegistSourceRequest:
+    properties:
+      description:
+        maxLength: 1000
+        type: string
+      name:
+        maxLength: 50
+        type: string
+    type: object
+  requests.UpdateHolidayRequest:
+    properties:
+      affects_rates:
+        minimum: 0
+        type: number
+      name:
+        maxLength: 100
+        type: string
+    type: object
+  requests.UpdatePaymentMethodRequest:
+    properties:
+      config:
+        items:
+          type: string
+        type: array
+      is_active:
+        type: boolean
       name:
         maxLength: 50
         type: string
@@ -115,6 +192,408 @@ info:
   title: Parking API
   version: "1.0"
 paths:
+  /customer-regist-sources:
+    get:
+      consumes:
+        - application/json
+      description: Get list of customer registration sources with pagination
+      parameters:
+        - default: 1
+          description: Page number
+          in: query
+          name: page
+          type: integer
+        - default: 10
+          description: Items per page
+          in: query
+          name: limit
+          type: integer
+        - description: Search by name
+          in: query
+          name: search
+          type: string
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/responses.PageResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/responses.BaseResponse'
+      summary: Get All Customer Registration Sources
+      tags:
+        - Customer Registration Sources
+    post:
+      consumes:
+        - application/json
+      parameters:
+        - description: Customer Registration Source Request
+          in: body
+          name: request
+          required: true
+          schema:
+            $ref: '#/definitions/requests.CreateCustomerRegistSourceRequest'
+      produces:
+        - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/responses.BaseResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/responses.BaseResponse'
+      summary: Create New Customer Registration Source
+      tags:
+        - Customer Registration Sources
+  /customer-regist-sources/{id}:
+    delete:
+      consumes:
+        - application/json
+      parameters:
+        - description: Customer Registration Source Hash ID
+          in: path
+          name: id
+          required: true
+          type: string
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/responses.BaseResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/responses.BaseResponse'
+      summary: Delete Customer Registration Source
+      tags:
+        - Customer Registration Sources
+    get:
+      consumes:
+        - application/json
+      parameters:
+        - description: Customer Registration Source Hash ID
+          in: path
+          name: id
+          required: true
+          type: string
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/responses.BaseResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/responses.BaseResponse'
+      summary: Get Customer Registration Source By ID
+      tags:
+        - Customer Registration Sources
+    put:
+      consumes:
+        - application/json
+      parameters:
+        - description: Customer Registration Source Hash ID
+          in: path
+          name: id
+          required: true
+          type: string
+        - description: Update Request Body
+          in: body
+          name: request
+          required: true
+          schema:
+            $ref: '#/definitions/requests.UpdateCustomerRegistSourceRequest'
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/responses.BaseResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/responses.BaseResponse'
+      summary: Update Customer Registration Source
+      tags:
+        - Customer Registration Sources
+  /holidays:
+    get:
+      consumes:
+        - application/json
+      description: Get list of holidays with pagination
+      parameters:
+        - default: 1
+          description: Page number
+          in: query
+          name: page
+          type: integer
+        - default: 10
+          description: Items per page
+          in: query
+          name: limit
+          type: integer
+        - description: Search by name
+          in: query
+          name: search
+          type: string
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/responses.PageResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/responses.BaseResponse'
+      summary: Get All Holidays
+      tags:
+        - Holidays
+    post:
+      consumes:
+        - application/json
+      parameters:
+        - description: Holiday Request
+          in: body
+          name: request
+          required: true
+          schema:
+            $ref: '#/definitions/requests.CreateHolidayRequest'
+      produces:
+        - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/responses.BaseResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/responses.BaseResponse'
+      summary: Create New Holiday
+      tags:
+        - Holidays
+  /holidays/{id}:
+    delete:
+      consumes:
+        - application/json
+      parameters:
+        - description: Holiday Hash ID
+          in: path
+          name: id
+          required: true
+          type: string
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/responses.BaseResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/responses.BaseResponse'
+      summary: Delete Holiday
+      tags:
+        - Holidays
+    get:
+      consumes:
+        - application/json
+      parameters:
+        - description: Holiday Hash ID
+          in: path
+          name: id
+          required: true
+          type: string
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/responses.BaseResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/responses.BaseResponse'
+      summary: Get Holiday By ID
+      tags:
+        - Holidays
+    put:
+      consumes:
+        - application/json
+      parameters:
+        - description: Holiday Hash ID
+          in: path
+          name: id
+          required: true
+          type: string
+        - description: Update Request Body
+          in: body
+          name: request
+          required: true
+          schema:
+            $ref: '#/definitions/requests.UpdateHolidayRequest'
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/responses.BaseResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/responses.BaseResponse'
+      summary: Update Holiday
+      tags:
+        - Holidays
+  /payment-methods:
+    get:
+      consumes:
+        - application/json
+      description: Get list of payment methods with pagination
+      parameters:
+        - default: 1
+          description: Page number
+          in: query
+          name: page
+          type: integer
+        - default: 10
+          description: Items per page
+          in: query
+          name: limit
+          type: integer
+        - description: Search by name
+          in: query
+          name: search
+          type: string
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/responses.PageResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/responses.BaseResponse'
+      summary: Get All Payment Methods
+      tags:
+        - Payment Methods
+    post:
+      consumes:
+        - application/json
+      parameters:
+        - description: Payment Method Request
+          in: body
+          name: request
+          required: true
+          schema:
+            $ref: '#/definitions/requests.CreatePaymentMethodRequest'
+      produces:
+        - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/responses.BaseResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/responses.BaseResponse'
+      summary: Create New Payment Method
+      tags:
+        - Payment Methods
+  /payment-methods/{id}:
+    delete:
+      consumes:
+        - application/json
+      parameters:
+        - description: Payment Method Hash ID
+          in: path
+          name: id
+          required: true
+          type: string
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/responses.BaseResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/responses.BaseResponse'
+      summary: Delete Payment Method
+      tags:
+        - Payment Methods
+    get:
+      consumes:
+        - application/json
+      parameters:
+        - description: Payment Method Hash ID
+          in: path
+          name: id
+          required: true
+          type: string
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/responses.BaseResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/responses.BaseResponse'
+      summary: Get Payment Method By ID
+      tags:
+        - Payment Methods
+    put:
+      consumes:
+        - application/json
+      parameters:
+        - description: Payment Method Hash ID
+          in: path
+          name: id
+          required: true
+          type: string
+        - description: Update Request Body
+          in: body
+          name: request
+          required: true
+          schema:
+            $ref: '#/definitions/requests.UpdatePaymentMethodRequest'
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/responses.BaseResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/responses.BaseResponse'
+      summary: Update Payment Method
+      tags:
+        - Payment Methods
   /vehicle-types:
     get:
       consumes:

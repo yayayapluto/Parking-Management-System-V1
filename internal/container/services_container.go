@@ -11,5 +11,5 @@ func initServices(c *Container, o helpers.IDObfuscator, v *validator.Validate) {
 	c.ZoneTypeService = services.NewZoneTypeService(c.ZoneTypeRepo, o, v)
 	c.HolidayService = services.NewHolidayService(c.HolidayRepo, o, v)
 	c.CustomerRegistSourceService = services.NewCustomerRegistSourceService(c.CustomerRegistSourceRepo, o, v)
-	c.PaymendMethodService = services.NewPaymentMethodService(c.PaymentMethodRepo, o, v)
+	c.PaymentMethodService = services.NewPaymentMethodService(c.PaymentMethodRepo, o, v)
 }

@@ -12,7 +12,7 @@ import (
 )
 
 type CustomerRegistSourceService interface {
-	GetAll(ctx context.Context, p requests.PaginationRequest) (responses.PageResponse, error)
+	GetAll(ctx context.Context, p requests.PaginationRequest, url string) (responses.PageResponse, error)
 	GetByID(ctx context.Context, hashedID string) (responses.CustomerRegistSourceResponse, error)
 	Create(ctx context.Context, req requests.CreateCustomerRegistSourceRequest) (responses.CustomerRegistSourceResponse, error)
 	Update(ctx context.Context, hashedID string, req requests.UpdateCustomerRegistSourceRequest) (responses.CustomerRegistSourceResponse, error)
@@ -33,7 +33,7 @@ func NewCustomerRegistSourceService(r repos.CustomerRegistSourceRepository, o he
 	}
 }
 
-func (s *customerRegistSourceService) GetAll(ctx context.Context, p requests.PaginationRequest) (responses.PageResponse, error) {
+func (s *customerRegistSourceService) GetAll(ctx context.Context, p requests.PaginationRequest, url string) (responses.PageResponse, error) {
 	mdls, total, err := s.repo.GetWithPagination(ctx, p, "name")
 	if err != nil {
 		return responses.PageResponse{}, err
@@ -48,7 +48,7 @@ func (s *customerRegistSourceService) GetAll(ctx context.Context, p requests.Pag
 		Success:    true,
 		Message:    "Registration sources retrieved successfully",
 		Data:       list,
-		Pagination: responses.CreateMeta(p, total, ""),
+		Pagination: responses.CreateMeta(p, total, url),
 	}, nil
 }
 

@@ -35,12 +35,15 @@ type Container struct {
 	CustomerRepo                repos.CustomerRepository
 	CustomerRegistSourceRepo    repos.CustomerRegistSourceRepository
 	CustomerRegistSourceService services.CustomerRegistSourceService
+	CustomerRegistSourceHandler *handlers.CustomerRegistSourceHandler
 
 	// Group: Payment & General
 	HolidayRepo          repos.HolidayRepository
 	HolidayService       services.HolidayService
+	HolidayHandler       *handlers.HolidayHandler
 	PaymentMethodRepo    repos.PaymentMethodRepository
-	PaymendMethodService services.PaymentMethodService
+	PaymentMethodService services.PaymentMethodService
+	PaymentMethodHandler *handlers.PaymentMethodHandler
 
 	// Group: Main Transaction & Details
 	ParkingTransactionRepo repos.ParkingTransactionRepository

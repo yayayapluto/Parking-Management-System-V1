@@ -7,4 +7,7 @@ import (
 func initHandlers(c *Container) {
 	c.VehicleTypeHandler = handlers.NewVehicleTypeHandler(c.VehicleTypeService)
 	c.ZoneTypeHandler = handlers.NewZoneTypeHandler(c.ZoneTypeService)
+	c.CustomerRegistSourceHandler = handlers.NewCustomerRegistSourceHandler(c.CustomerRegistSourceService)
+	c.HolidayHandler = handlers.NewHolidayHandler(c.HolidayService)
+	c.PaymentMethodHandler = handlers.NewPaymentMethodHandler(c.PaymentMethodService)
 }

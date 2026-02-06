@@ -14,7 +14,7 @@ import (
 )
 
 type HolidayService interface {
-	GetAll(ctx context.Context, p requests.PaginationRequest) (responses.PageResponse, error)
+	GetAll(ctx context.Context, p requests.PaginationRequest, url string) (responses.PageResponse, error)
 	GetByID(ctx context.Context, hashedID string) (responses.HolidayResponse, error)
 	Create(ctx context.Context, req requests.CreateHolidayRequest) (responses.HolidayResponse, error)
 	Update(ctx context.Context, hashedID string, req requests.UpdateHolidayRequest) (responses.HolidayResponse, error)
@@ -35,7 +35,7 @@ func NewHolidayService(r repos.HolidayRepository, o helpers.IDObfuscator, v *val
 	}
 }
 
-func (s *holidayService) GetAll(ctx context.Context, p requests.PaginationRequest) (responses.PageResponse, error) {
+func (s *holidayService) GetAll(ctx context.Context, p requests.PaginationRequest, url string) (responses.PageResponse, error) {
 	mdls, total, err := s.repo.GetWithPagination(ctx, p, "date")
 	if err != nil {
 		return responses.PageResponse{}, err
@@ -50,7 +50,7 @@ func (s *holidayService) GetAll(ctx context.Context, p requests.PaginationReques
 		Success:    true,
 		Message:    "Holidays retrieved successfully",
 		Data:       list,
-		Pagination: responses.CreateMeta(p, total, ""),
+		Pagination: responses.CreateMeta(p, total, url),
 	}, nil
 }
 
