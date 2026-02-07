@@ -18,4 +18,7 @@ func initHandlers(c *Container, cfg *config.Config) {
 	c.UserHandler = handlers.NewUserHandler(c.UserService)
 	c.RoleHandler = handlers.NewRoleHandler(c.RoleService)
 	c.AuthHandler = handlers.NewAuthHandler(c.AuthService, cfg)
+	
+	// Transaction Handlers
+	c.ParkingTransactionHandler = handlers.NewParkingTransactionHandler(c.ParkingTransactionService, c.IDObfuscator)
 }

@@ -56,10 +56,12 @@ type Container struct {
 	PaymentMethodHandler *handlers.PaymentMethodHandler
 
 	// Group: Main Transaction & Details
-	ParkingTransactionRepo repos.ParkingTransactionRepository
-	TransactionZoneRepo    repos.TransactionZoneRepository
-	TransactionOCRDataRepo repos.TransactionOCRDataRepository
-	TransactionEventRepo   repos.TransactionEventRepository
+	ParkingTransactionRepo     repos.ParkingTransactionRepository
+	ParkingTransactionService  services.ParkingTransactionService
+	ParkingTransactionHandler  *handlers.ParkingTransactionHandler
+	TransactionZoneRepo        repos.TransactionZoneRepository
+	TransactionOCRDataRepo     repos.TransactionOCRDataRepository
+	TransactionEventRepo       repos.TransactionEventRepository
 
 	// Group: Financials
 	PaymentRepo       repos.PaymentRepository

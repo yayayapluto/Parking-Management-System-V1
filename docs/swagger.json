@@ -905,6 +905,63 @@
                 }
             }
         },
+        "/transactions/entry": {
+            "post": {
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "description": "Record a vehicle entering the parking zone and generate a parking ticket",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Transactions"
+                ],
+                "summary": "Register Vehicle Entry (Gate In)",
+                "parameters": [
+                    {
+                        "description": "Parking Entry Request",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/requests.ParkingEntryRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "schema": {
+                            "$ref": "#/definitions/responses.BaseResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/responses.BaseResponse"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/responses.BaseResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/responses.BaseResponse"
+                        }
+                    }
+                }
+            }
+        },
         "/users": {
             "get": {
                 "description": "Get list of users with pagination",
@@ -2209,6 +2266,38 @@
                 "username": {
                     "type": "string",
                     "maxLength": 50
+                }
+            }
+        },
+        "requests.ParkingEntryRequest": {
+            "type": "object",
+            "required": [
+                "plate_number",
+                "vehicle_type_id",
+                "zone_id"
+            ],
+            "properties": {
+                "operator_id": {
+                    "description": "OperatorID is the hashed ID of the operator (parking attendant) recording the entry\nIf not provided, it will be extracted from JWT context",
+                    "type": "string"
+                },
+                "plate_number": {
+                    "description": "PlateNumber is the vehicle's license plate number",
+                    "type": "string",
+                    "maxLength": 20
+                },
+                "rfid_uid": {
+                    "description": "RfidUID is the optional RFID tag UID for automatic vehicle identification",
+                    "type": "string",
+                    "maxLength": 50
+                },
+                "vehicle_type_id": {
+                    "description": "VehicleTypeID is the hashed ID of the vehicle type (e.g., \"motorcycle\", \"car\", \"truck\")",
+                    "type": "string"
+                },
+                "zone_id": {
+                    "description": "ZoneID is the hashed ID of the parking zone where the vehicle is entering",
+                    "type": "string"
                 }
             }
         },

@@ -19,4 +19,7 @@ func initServices(c *Container, o helpers.IDObfuscator, v *validator.Validate) {
 	c.UserService = services.NewUserService(c.UserRepo, o, v)
 	c.RoleService = services.NewRoleService(c.RoleRepo, o, v)
 	c.AuthService = services.NewAuthService(c.UserService)
+	
+	// Transaction Services
+	c.ParkingTransactionService = services.NewParkingTransactionService(c.ParkingTransactionRepo, o, v)
 }

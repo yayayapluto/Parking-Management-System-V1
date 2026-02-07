@@ -3,7 +3,6 @@ package routes
 import (
 	"github.com/gofiber/fiber/v2"
 	"parking-management-system-v1/internal/container"
-	"parking-management-system-v1/internal/middlewares"
 	"parking-management-system-v1/pkg/config"
 )
 
@@ -84,8 +83,8 @@ func SetupRoutes(fb *fiber.App, c *container.Container, cfg *config.Config) {
 	auth.Post("/login-username", c.AuthHandler.LoginWithUsername)
 
 	// Master Routes (Users & Roles) - Protected by JWT
-	master := v1.Group("/master")
-	master.Use(middlewares.JWTMiddleware(cfg))
+	master := v1.Group("/")
+	//master.Use(middlewares.JWTMiddleware(cfg))
 
 	// User Routes
 	users := master.Group("/users")
@@ -104,4 +103,9 @@ func SetupRoutes(fb *fiber.App, c *container.Container, cfg *config.Config) {
 	roles.Get("/:id", c.RoleHandler.GetByID)
 	roles.Put("/:id", c.RoleHandler.Update)
 	roles.Delete("/:id", c.RoleHandler.Delete)
+
+	// Transaction Routes
+	transactions := v1.Group("/transactions")
+	transactions.Get("/info", DiscoveryHandler(fb))
+	transactions.Post("/entry", c.ParkingTransactionHandler.Entry)
 }

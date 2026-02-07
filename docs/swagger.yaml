@@ -203,6 +203,34 @@ definitions:
     - password
     - username
     type: object
+  requests.ParkingEntryRequest:
+    properties:
+      operator_id:
+        description: |-
+          OperatorID is the hashed ID of the operator (parking attendant) recording the entry
+          If not provided, it will be extracted from JWT context
+        type: string
+      plate_number:
+        description: PlateNumber is the vehicle's license plate number
+        maxLength: 20
+        type: string
+      rfid_uid:
+        description: RfidUID is the optional RFID tag UID for automatic vehicle identification
+        maxLength: 50
+        type: string
+      vehicle_type_id:
+        description: VehicleTypeID is the hashed ID of the vehicle type (e.g., "motorcycle",
+          "car", "truck")
+        type: string
+      zone_id:
+        description: ZoneID is the hashed ID of the parking zone where the vehicle
+          is entering
+        type: string
+    required:
+    - plate_number
+    - vehicle_type_id
+    - zone_id
+    type: object
   requests.UpdateCustomerRegistSourceRequest:
     properties:
       description:
@@ -1001,6 +1029,43 @@ paths:
       summary: Update Role
       tags:
       - Roles
+  /transactions/entry:
+    post:
+      consumes:
+      - application/json
+      description: Record a vehicle entering the parking zone and generate a parking
+        ticket
+      parameters:
+      - description: Parking Entry Request
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/requests.ParkingEntryRequest'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/responses.BaseResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/responses.BaseResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/responses.BaseResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/responses.BaseResponse'
+      security:
+      - Bearer: []
+      summary: Register Vehicle Entry (Gate In)
+      tags:
+      - Transactions
   /users:
     get:
       consumes:

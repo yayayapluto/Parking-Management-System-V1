@@ -47,7 +47,7 @@ dev: docs
 
 	@# 3. Database (Lokal)
 	@printf "\033[1;36m>>> DATABASE REFRESH\033[0m\n"
-	@go run scripts/refresh.go
+	@go run scripts/refresh/refresh.go
 	@printf -- "----------------------------------------------------------\n"
 
 	@# 4. Application (Lokal)
@@ -99,10 +99,10 @@ down:
 	@$(COMPOSE) down
 
 refresh:
-	@go run scripts/refresh.go
+	@go run scripts/refresh/refresh.go
 
 seed:
-	@go run scripts/seed.go
+	@go run scripts/seed/seed.go
 
 logs:
 	@docker logs -f $(APP_NAME)
