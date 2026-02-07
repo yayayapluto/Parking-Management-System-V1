@@ -34,6 +34,10 @@ func LoadConfig() (*Config, error) {
 			Salt:      getEnv("HASH_SALT", "parkir123"),
 			MinLength: getEnvAsInt("HASH_MIN_LENGTH", 8),
 		},
+		JWTConfig: JWTConfig{
+			Secret:      getEnv("JWT_SECRET", "your-secret-key-change-in-production"),
+			ExpiryHours: getEnvAsInt("JWT_EXPIRY_HOURS", 24),
+		},
 	}
 	return config, nil
 }

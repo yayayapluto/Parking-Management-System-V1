@@ -4,6 +4,7 @@ type Config struct {
 	AppConfig  AppConfig      `json:"app_config"`
 	Postgres   PostgresConfig `json:"postgres"`
 	HashConfig HashConfig     `json:"hash"`
+	JWTConfig  JWTConfig      `json:"jwt"`
 }
 
 type AppConfig struct {
@@ -24,4 +25,9 @@ type PostgresConfig struct {
 type HashConfig struct {
 	Salt      string `json:"salt"`
 	MinLength int    `json:"min_length"`
+}
+
+type JWTConfig struct {
+	Secret       string `json:"secret"`
+	ExpiryHours  int    `json:"expiry_hours"`
 }

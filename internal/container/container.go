@@ -14,9 +14,15 @@ type Container struct {
 	IDObfuscator helpers.IDObfuscator
 
 	// Group: Auth & User
-	PermissionRepo repos.PermissionRepository
-	RoleRepo       repos.RoleRepository
-	UserRepo       repos.UserRepository
+	PermissionRepo    repos.PermissionRepository
+	RoleRepo          repos.RoleRepository
+	UserRepo          repos.UserRepository
+	UserService       services.UserService
+	RoleService       services.RoleService
+	AuthService       services.AuthService
+	UserHandler       *handlers.UserHandler
+	RoleHandler       *handlers.RoleHandler
+	AuthHandler       *handlers.AuthHandler
 
 	// Group: Vehicle
 	VehicleRepo        repos.VehicleRepository
@@ -28,6 +34,10 @@ type Container struct {
 	ZoneRepo        repos.ZoneRepository
 	ZoneRateRepo    repos.ZoneRateRepository
 	ZoneTypeRepo    repos.ZoneTypeRepository
+	ZoneService     services.ZoneService
+	ZoneHandler     *handlers.ZoneHandler
+	ZoneRateService services.ZoneRateService
+	ZoneRateHandler *handlers.ZoneRateHandler
 	ZoneTypeService services.ZoneTypeService
 	ZoneTypeHandler *handlers.ZoneTypeHandler
 
@@ -80,7 +90,7 @@ func NewContainer(db *gorm.DB, cfg *config.Config) *Container {
 	// Layer Initialization
 	initRepositories(db, c)
 	initServices(c, obfuscator, validate)
-	initHandlers(c)
+	initHandlers(c, cfg)
 
 	return c
 }

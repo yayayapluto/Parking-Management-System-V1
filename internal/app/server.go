@@ -58,7 +58,7 @@ func NewServer(cfg *config.Config, container *container.Container) *Server {
 	app.Get("/swagger/*", swagger.HandlerDefault)
 
 	// Init Routes
-	routes.SetupRoutes(app, container)
+	routes.SetupRoutes(app, container, cfg)
 
 	return &Server{
 		Fiber:     app,

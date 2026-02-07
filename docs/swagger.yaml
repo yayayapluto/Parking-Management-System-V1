@@ -9,7 +9,7 @@ definitions:
         maxLength: 50
         type: string
     required:
-      - name
+    - name
     type: object
   requests.CreateHolidayRequest:
     properties:
@@ -23,8 +23,8 @@ definitions:
         maxLength: 100
         type: string
     required:
-      - date
-      - name
+    - date
+    - name
     type: object
   requests.CreatePaymentMethodRequest:
     properties:
@@ -42,8 +42,48 @@ definitions:
         maxLength: 50
         type: string
     required:
-      - code
-      - name
+    - code
+    - name
+    type: object
+  requests.CreateRoleRequest:
+    properties:
+      created_by:
+        maxLength: 100
+        type: string
+      name:
+        maxLength: 50
+        type: string
+      permission_id:
+        type: string
+    required:
+    - name
+    - permission_id
+    type: object
+  requests.CreateUserRequest:
+    properties:
+      email:
+        maxLength: 255
+        type: string
+      full_name:
+        maxLength: 100
+        type: string
+      password:
+        minLength: 8
+        type: string
+      phone:
+        maxLength: 20
+        type: string
+      role_id:
+        type: string
+      username:
+        maxLength: 50
+        type: string
+    required:
+    - email
+    - full_name
+    - password
+    - role_id
+    - username
     type: object
   requests.CreateVehicleTypeRequest:
     properties:
@@ -57,8 +97,77 @@ definitions:
         maxLength: 50
         type: string
     required:
-      - code
-      - name
+    - code
+    - name
+    type: object
+  requests.CreateZoneRateRequest:
+    properties:
+      daily_max_rate:
+        minimum: 0
+        type: number
+      effective_hour_from:
+        type: string
+      effective_hour_to:
+        type: string
+      free_minutes:
+        minimum: 0
+        type: integer
+      holiday_id:
+        type: string
+      hourly_rate:
+        minimum: 0
+        type: number
+      is_holiday:
+        type: boolean
+      is_weekend:
+        type: boolean
+      valid_from:
+        type: string
+      valid_to:
+        type: string
+      vehicle_type_id:
+        type: string
+      zone_id:
+        type: string
+    required:
+    - daily_max_rate
+    - hourly_rate
+    - valid_from
+    - valid_to
+    - vehicle_type_id
+    - zone_id
+    type: object
+  requests.CreateZoneRequest:
+    properties:
+      default_fee:
+        minimum: 0
+        type: number
+      description:
+        maxLength: 1000
+        type: string
+      is_24_hours:
+        type: boolean
+      location:
+        maxLength: 255
+        type: string
+      maximum_capacity:
+        minimum: 1
+        type: integer
+      name:
+        maxLength: 100
+        type: string
+      operating_hour_end:
+        type: string
+      operating_hour_start:
+        type: string
+      zone_type_id:
+        type: string
+    required:
+    - default_fee
+    - location
+    - maximum_capacity
+    - name
+    - zone_type_id
     type: object
   requests.CreateZoneTypeRequest:
     properties:
@@ -69,7 +178,30 @@ definitions:
         maxLength: 50
         type: string
     required:
-      - name
+    - name
+    type: object
+  requests.LoginRequest:
+    properties:
+      email:
+        type: string
+      password:
+        minLength: 8
+        type: string
+    required:
+    - email
+    - password
+    type: object
+  requests.LoginWithUsernameRequest:
+    properties:
+      password:
+        minLength: 8
+        type: string
+      username:
+        maxLength: 50
+        type: string
+    required:
+    - password
+    - username
     type: object
   requests.UpdateCustomerRegistSourceRequest:
     properties:
@@ -101,7 +233,34 @@ definitions:
         maxLength: 50
         type: string
     required:
-      - name
+    - name
+    type: object
+  requests.UpdateRoleRequest:
+    properties:
+      name:
+        maxLength: 50
+        type: string
+      permission_id:
+        type: string
+      updated_by:
+        maxLength: 100
+        type: string
+    type: object
+  requests.UpdateUserRequest:
+    properties:
+      email:
+        maxLength: 255
+        type: string
+      full_name:
+        maxLength: 100
+        type: string
+      is_active:
+        type: boolean
+      phone:
+        maxLength: 20
+        type: string
+      role_id:
+        type: string
     type: object
   requests.UpdateVehicleTypeRequest:
     properties:
@@ -117,6 +276,68 @@ definitions:
         maxLength: 50
         type: string
     type: object
+  requests.UpdateZoneRateRequest:
+    properties:
+      daily_max_rate:
+        minimum: 0
+        type: number
+      effective_hour_from:
+        type: string
+      effective_hour_to:
+        type: string
+      free_minutes:
+        minimum: 0
+        type: integer
+      holiday_id:
+        type: string
+      hourly_rate:
+        minimum: 0
+        type: number
+      is_active:
+        type: boolean
+      is_holiday:
+        type: boolean
+      is_weekend:
+        type: boolean
+      valid_from:
+        type: string
+      valid_to:
+        type: string
+      vehicle_type_id:
+        type: string
+      zone_id:
+        type: string
+    type: object
+  requests.UpdateZoneRequest:
+    properties:
+      default_fee:
+        minimum: 0
+        type: number
+      description:
+        maxLength: 1000
+        type: string
+      is_24_hours:
+        type: boolean
+      is_active:
+        type: boolean
+      is_in_maintenance:
+        type: boolean
+      location:
+        maxLength: 255
+        type: string
+      maximum_capacity:
+        minimum: 1
+        type: integer
+      name:
+        maxLength: 100
+        type: string
+      operating_hour_end:
+        type: string
+      operating_hour_start:
+        type: string
+      zone_type_id:
+        type: string
+    type: object
   requests.UpdateZoneTypeRequest:
     properties:
       description:
@@ -128,8 +349,8 @@ definitions:
     type: object
   responses.BaseResponse:
     properties:
-      data: { }
-      errors: { }
+      data: {}
+      errors: {}
       message:
         type: string
       success:
@@ -177,7 +398,7 @@ definitions:
     type: object
   responses.PageResponse:
     properties:
-      data: { }
+      data: {}
       message:
         type: string
       meta:
@@ -187,33 +408,85 @@ definitions:
     type: object
 host: localhost:8080
 info:
-  contact: { }
+  contact: {}
   description: Dokumentasi API Sistem Manajemen Parkir.
   title: Parking API
   version: "1.0"
 paths:
+  /auth/login:
+    post:
+      consumes:
+      - application/json
+      description: Authenticate user with email and password
+      parameters:
+      - description: Login Request
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/requests.LoginRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/responses.BaseResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/responses.BaseResponse'
+      summary: Login with Email
+      tags:
+      - Auth
+  /auth/login-username:
+    post:
+      consumes:
+      - application/json
+      description: Authenticate user with username and password
+      parameters:
+      - description: Login Request
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/requests.LoginWithUsernameRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/responses.BaseResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/responses.BaseResponse'
+      summary: Login with Username
+      tags:
+      - Auth
   /customer-regist-sources:
     get:
       consumes:
-        - application/json
+      - application/json
       description: Get list of customer registration sources with pagination
       parameters:
-        - default: 1
-          description: Page number
-          in: query
-          name: page
-          type: integer
-        - default: 10
-          description: Items per page
-          in: query
-          name: limit
-          type: integer
-        - description: Search by name
-          in: query
-          name: search
-          type: string
+      - default: 1
+        description: Page number
+        in: query
+        name: page
+        type: integer
+      - default: 10
+        description: Items per page
+        in: query
+        name: limit
+        type: integer
+      - description: Search by name
+        in: query
+        name: search
+        type: string
       produces:
-        - application/json
+      - application/json
       responses:
         "200":
           description: OK
@@ -225,19 +498,19 @@ paths:
             $ref: '#/definitions/responses.BaseResponse'
       summary: Get All Customer Registration Sources
       tags:
-        - Customer Registration Sources
+      - Customer Registration Sources
     post:
       consumes:
-        - application/json
+      - application/json
       parameters:
-        - description: Customer Registration Source Request
-          in: body
-          name: request
-          required: true
-          schema:
-            $ref: '#/definitions/requests.CreateCustomerRegistSourceRequest'
+      - description: Customer Registration Source Request
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/requests.CreateCustomerRegistSourceRequest'
       produces:
-        - application/json
+      - application/json
       responses:
         "201":
           description: Created
@@ -249,19 +522,19 @@ paths:
             $ref: '#/definitions/responses.BaseResponse'
       summary: Create New Customer Registration Source
       tags:
-        - Customer Registration Sources
+      - Customer Registration Sources
   /customer-regist-sources/{id}:
     delete:
       consumes:
-        - application/json
+      - application/json
       parameters:
-        - description: Customer Registration Source Hash ID
-          in: path
-          name: id
-          required: true
-          type: string
+      - description: Customer Registration Source Hash ID
+        in: path
+        name: id
+        required: true
+        type: string
       produces:
-        - application/json
+      - application/json
       responses:
         "200":
           description: OK
@@ -273,18 +546,18 @@ paths:
             $ref: '#/definitions/responses.BaseResponse'
       summary: Delete Customer Registration Source
       tags:
-        - Customer Registration Sources
+      - Customer Registration Sources
     get:
       consumes:
-        - application/json
+      - application/json
       parameters:
-        - description: Customer Registration Source Hash ID
-          in: path
-          name: id
-          required: true
-          type: string
+      - description: Customer Registration Source Hash ID
+        in: path
+        name: id
+        required: true
+        type: string
       produces:
-        - application/json
+      - application/json
       responses:
         "200":
           description: OK
@@ -296,24 +569,24 @@ paths:
             $ref: '#/definitions/responses.BaseResponse'
       summary: Get Customer Registration Source By ID
       tags:
-        - Customer Registration Sources
+      - Customer Registration Sources
     put:
       consumes:
-        - application/json
+      - application/json
       parameters:
-        - description: Customer Registration Source Hash ID
-          in: path
-          name: id
-          required: true
-          type: string
-        - description: Update Request Body
-          in: body
-          name: request
-          required: true
-          schema:
-            $ref: '#/definitions/requests.UpdateCustomerRegistSourceRequest'
+      - description: Customer Registration Source Hash ID
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Update Request Body
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/requests.UpdateCustomerRegistSourceRequest'
       produces:
-        - application/json
+      - application/json
       responses:
         "200":
           description: OK
@@ -325,29 +598,29 @@ paths:
             $ref: '#/definitions/responses.BaseResponse'
       summary: Update Customer Registration Source
       tags:
-        - Customer Registration Sources
+      - Customer Registration Sources
   /holidays:
     get:
       consumes:
-        - application/json
+      - application/json
       description: Get list of holidays with pagination
       parameters:
-        - default: 1
-          description: Page number
-          in: query
-          name: page
-          type: integer
-        - default: 10
-          description: Items per page
-          in: query
-          name: limit
-          type: integer
-        - description: Search by name
-          in: query
-          name: search
-          type: string
+      - default: 1
+        description: Page number
+        in: query
+        name: page
+        type: integer
+      - default: 10
+        description: Items per page
+        in: query
+        name: limit
+        type: integer
+      - description: Search by name
+        in: query
+        name: search
+        type: string
       produces:
-        - application/json
+      - application/json
       responses:
         "200":
           description: OK
@@ -359,19 +632,19 @@ paths:
             $ref: '#/definitions/responses.BaseResponse'
       summary: Get All Holidays
       tags:
-        - Holidays
+      - Holidays
     post:
       consumes:
-        - application/json
+      - application/json
       parameters:
-        - description: Holiday Request
-          in: body
-          name: request
-          required: true
-          schema:
-            $ref: '#/definitions/requests.CreateHolidayRequest'
+      - description: Holiday Request
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/requests.CreateHolidayRequest'
       produces:
-        - application/json
+      - application/json
       responses:
         "201":
           description: Created
@@ -383,19 +656,19 @@ paths:
             $ref: '#/definitions/responses.BaseResponse'
       summary: Create New Holiday
       tags:
-        - Holidays
+      - Holidays
   /holidays/{id}:
     delete:
       consumes:
-        - application/json
+      - application/json
       parameters:
-        - description: Holiday Hash ID
-          in: path
-          name: id
-          required: true
-          type: string
+      - description: Holiday Hash ID
+        in: path
+        name: id
+        required: true
+        type: string
       produces:
-        - application/json
+      - application/json
       responses:
         "200":
           description: OK
@@ -407,18 +680,18 @@ paths:
             $ref: '#/definitions/responses.BaseResponse'
       summary: Delete Holiday
       tags:
-        - Holidays
+      - Holidays
     get:
       consumes:
-        - application/json
+      - application/json
       parameters:
-        - description: Holiday Hash ID
-          in: path
-          name: id
-          required: true
-          type: string
+      - description: Holiday Hash ID
+        in: path
+        name: id
+        required: true
+        type: string
       produces:
-        - application/json
+      - application/json
       responses:
         "200":
           description: OK
@@ -430,24 +703,24 @@ paths:
             $ref: '#/definitions/responses.BaseResponse'
       summary: Get Holiday By ID
       tags:
-        - Holidays
+      - Holidays
     put:
       consumes:
-        - application/json
+      - application/json
       parameters:
-        - description: Holiday Hash ID
-          in: path
-          name: id
-          required: true
-          type: string
-        - description: Update Request Body
-          in: body
-          name: request
-          required: true
-          schema:
-            $ref: '#/definitions/requests.UpdateHolidayRequest'
+      - description: Holiday Hash ID
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Update Request Body
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/requests.UpdateHolidayRequest'
       produces:
-        - application/json
+      - application/json
       responses:
         "200":
           description: OK
@@ -459,29 +732,29 @@ paths:
             $ref: '#/definitions/responses.BaseResponse'
       summary: Update Holiday
       tags:
-        - Holidays
+      - Holidays
   /payment-methods:
     get:
       consumes:
-        - application/json
+      - application/json
       description: Get list of payment methods with pagination
       parameters:
-        - default: 1
-          description: Page number
-          in: query
-          name: page
-          type: integer
-        - default: 10
-          description: Items per page
-          in: query
-          name: limit
-          type: integer
-        - description: Search by name
-          in: query
-          name: search
-          type: string
+      - default: 1
+        description: Page number
+        in: query
+        name: page
+        type: integer
+      - default: 10
+        description: Items per page
+        in: query
+        name: limit
+        type: integer
+      - description: Search by name
+        in: query
+        name: search
+        type: string
       produces:
-        - application/json
+      - application/json
       responses:
         "200":
           description: OK
@@ -493,19 +766,19 @@ paths:
             $ref: '#/definitions/responses.BaseResponse'
       summary: Get All Payment Methods
       tags:
-        - Payment Methods
+      - Payment Methods
     post:
       consumes:
-        - application/json
+      - application/json
       parameters:
-        - description: Payment Method Request
-          in: body
-          name: request
-          required: true
-          schema:
-            $ref: '#/definitions/requests.CreatePaymentMethodRequest'
+      - description: Payment Method Request
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/requests.CreatePaymentMethodRequest'
       produces:
-        - application/json
+      - application/json
       responses:
         "201":
           description: Created
@@ -517,19 +790,19 @@ paths:
             $ref: '#/definitions/responses.BaseResponse'
       summary: Create New Payment Method
       tags:
-        - Payment Methods
+      - Payment Methods
   /payment-methods/{id}:
     delete:
       consumes:
-        - application/json
+      - application/json
       parameters:
-        - description: Payment Method Hash ID
-          in: path
-          name: id
-          required: true
-          type: string
+      - description: Payment Method Hash ID
+        in: path
+        name: id
+        required: true
+        type: string
       produces:
-        - application/json
+      - application/json
       responses:
         "200":
           description: OK
@@ -541,18 +814,18 @@ paths:
             $ref: '#/definitions/responses.BaseResponse'
       summary: Delete Payment Method
       tags:
-        - Payment Methods
+      - Payment Methods
     get:
       consumes:
-        - application/json
+      - application/json
       parameters:
-        - description: Payment Method Hash ID
-          in: path
-          name: id
-          required: true
-          type: string
+      - description: Payment Method Hash ID
+        in: path
+        name: id
+        required: true
+        type: string
       produces:
-        - application/json
+      - application/json
       responses:
         "200":
           description: OK
@@ -564,24 +837,24 @@ paths:
             $ref: '#/definitions/responses.BaseResponse'
       summary: Get Payment Method By ID
       tags:
-        - Payment Methods
+      - Payment Methods
     put:
       consumes:
-        - application/json
+      - application/json
       parameters:
-        - description: Payment Method Hash ID
-          in: path
-          name: id
-          required: true
-          type: string
-        - description: Update Request Body
-          in: body
-          name: request
-          required: true
-          schema:
-            $ref: '#/definitions/requests.UpdatePaymentMethodRequest'
+      - description: Payment Method Hash ID
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Update Request Body
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/requests.UpdatePaymentMethodRequest'
       produces:
-        - application/json
+      - application/json
       responses:
         "200":
           description: OK
@@ -593,29 +866,297 @@ paths:
             $ref: '#/definitions/responses.BaseResponse'
       summary: Update Payment Method
       tags:
-        - Payment Methods
+      - Payment Methods
+  /roles:
+    get:
+      consumes:
+      - application/json
+      description: Get list of roles with pagination
+      parameters:
+      - default: 1
+        description: Page number
+        in: query
+        name: page
+        type: integer
+      - default: 10
+        description: Items per page
+        in: query
+        name: limit
+        type: integer
+      - description: Search by name
+        in: query
+        name: search
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/responses.PageResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/responses.BaseResponse'
+      summary: Get All Roles
+      tags:
+      - Roles
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: Role Request
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/requests.CreateRoleRequest'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/responses.BaseResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/responses.BaseResponse'
+      summary: Create New Role
+      tags:
+      - Roles
+  /roles/{id}:
+    delete:
+      consumes:
+      - application/json
+      parameters:
+      - description: Role Hash ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/responses.BaseResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/responses.BaseResponse'
+      summary: Delete Role
+      tags:
+      - Roles
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - description: Role Hash ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/responses.BaseResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/responses.BaseResponse'
+      summary: Get Role By ID
+      tags:
+      - Roles
+    put:
+      consumes:
+      - application/json
+      parameters:
+      - description: Role Hash ID
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Update Request Body
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/requests.UpdateRoleRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/responses.BaseResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/responses.BaseResponse'
+      summary: Update Role
+      tags:
+      - Roles
+  /users:
+    get:
+      consumes:
+      - application/json
+      description: Get list of users with pagination
+      parameters:
+      - default: 1
+        description: Page number
+        in: query
+        name: page
+        type: integer
+      - default: 10
+        description: Items per page
+        in: query
+        name: limit
+        type: integer
+      - description: Search by username, email, or full name
+        in: query
+        name: search
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/responses.PageResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/responses.BaseResponse'
+      summary: Get All Users
+      tags:
+      - Users
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: User Request
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/requests.CreateUserRequest'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/responses.BaseResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/responses.BaseResponse'
+      summary: Create New User
+      tags:
+      - Users
+  /users/{id}:
+    delete:
+      consumes:
+      - application/json
+      parameters:
+      - description: User Hash ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/responses.BaseResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/responses.BaseResponse'
+      summary: Delete User
+      tags:
+      - Users
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - description: User Hash ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/responses.BaseResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/responses.BaseResponse'
+      summary: Get User By ID
+      tags:
+      - Users
+    put:
+      consumes:
+      - application/json
+      parameters:
+      - description: User Hash ID
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Update Request Body
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/requests.UpdateUserRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/responses.BaseResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/responses.BaseResponse'
+      summary: Update User
+      tags:
+      - Users
   /vehicle-types:
     get:
       consumes:
-        - application/json
+      - application/json
       description: Get list of vehicle types with pagination
       parameters:
-        - default: 1
-          description: Page number
-          in: query
-          name: page
-          type: integer
-        - default: 10
-          description: Items per page
-          in: query
-          name: limit
-          type: integer
-        - description: Search by name
-          in: query
-          name: search
-          type: string
+      - default: 1
+        description: Page number
+        in: query
+        name: page
+        type: integer
+      - default: 10
+        description: Items per page
+        in: query
+        name: limit
+        type: integer
+      - description: Search by name
+        in: query
+        name: search
+        type: string
       produces:
-        - application/json
+      - application/json
       responses:
         "200":
           description: OK
@@ -627,19 +1168,19 @@ paths:
             $ref: '#/definitions/responses.BaseResponse'
       summary: Get All Vehicle Types
       tags:
-        - Vehicle Types
+      - Vehicle Types
     post:
       consumes:
-        - application/json
+      - application/json
       parameters:
-        - description: Vehicle Type Request
-          in: body
-          name: request
-          required: true
-          schema:
-            $ref: '#/definitions/requests.CreateVehicleTypeRequest'
+      - description: Vehicle Type Request
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/requests.CreateVehicleTypeRequest'
       produces:
-        - application/json
+      - application/json
       responses:
         "201":
           description: Created
@@ -651,19 +1192,19 @@ paths:
             $ref: '#/definitions/responses.BaseResponse'
       summary: Create New Vehicle Type
       tags:
-        - Vehicle Types
+      - Vehicle Types
   /vehicle-types/{id}:
     delete:
       consumes:
-        - application/json
+      - application/json
       parameters:
-        - description: Vehicle Type Hash ID
-          in: path
-          name: id
-          required: true
-          type: string
+      - description: Vehicle Type Hash ID
+        in: path
+        name: id
+        required: true
+        type: string
       produces:
-        - application/json
+      - application/json
       responses:
         "200":
           description: OK
@@ -675,18 +1216,18 @@ paths:
             $ref: '#/definitions/responses.BaseResponse'
       summary: Delete Vehicle Type
       tags:
-        - Vehicle Types
+      - Vehicle Types
     get:
       consumes:
-        - application/json
+      - application/json
       parameters:
-        - description: Vehicle Type Hash ID
-          in: path
-          name: id
-          required: true
-          type: string
+      - description: Vehicle Type Hash ID
+        in: path
+        name: id
+        required: true
+        type: string
       produces:
-        - application/json
+      - application/json
       responses:
         "200":
           description: OK
@@ -698,24 +1239,24 @@ paths:
             $ref: '#/definitions/responses.BaseResponse'
       summary: Get Vehicle Type By ID
       tags:
-        - Vehicle Types
+      - Vehicle Types
     put:
       consumes:
-        - application/json
+      - application/json
       parameters:
-        - description: Vehicle Type Hash ID
-          in: path
-          name: id
-          required: true
-          type: string
-        - description: Update Request Body
-          in: body
-          name: request
-          required: true
-          schema:
-            $ref: '#/definitions/requests.UpdateVehicleTypeRequest'
+      - description: Vehicle Type Hash ID
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Update Request Body
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/requests.UpdateVehicleTypeRequest'
       produces:
-        - application/json
+      - application/json
       responses:
         "200":
           description: OK
@@ -727,29 +1268,163 @@ paths:
             $ref: '#/definitions/responses.BaseResponse'
       summary: Update Vehicle Type
       tags:
-        - Vehicle Types
+      - Vehicle Types
+  /zone-rates:
+    get:
+      consumes:
+      - application/json
+      description: Get list of zone rates with pagination
+      parameters:
+      - default: 1
+        description: Page number
+        in: query
+        name: page
+        type: integer
+      - default: 10
+        description: Items per page
+        in: query
+        name: limit
+        type: integer
+      - description: Search
+        in: query
+        name: search
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/responses.PageResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/responses.BaseResponse'
+      summary: Get All Zone Rates
+      tags:
+      - Zone Rates
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: Zone Rate Request
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/requests.CreateZoneRateRequest'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/responses.BaseResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/responses.BaseResponse'
+      summary: Create New Zone Rate
+      tags:
+      - Zone Rates
+  /zone-rates/{id}:
+    delete:
+      consumes:
+      - application/json
+      parameters:
+      - description: Zone Rate Hash ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/responses.BaseResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/responses.BaseResponse'
+      summary: Delete Zone Rate
+      tags:
+      - Zone Rates
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - description: Zone Rate Hash ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/responses.BaseResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/responses.BaseResponse'
+      summary: Get Zone Rate By ID
+      tags:
+      - Zone Rates
+    put:
+      consumes:
+      - application/json
+      parameters:
+      - description: Zone Rate Hash ID
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Update Request Body
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/requests.UpdateZoneRateRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/responses.BaseResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/responses.BaseResponse'
+      summary: Update Zone Rate
+      tags:
+      - Zone Rates
   /zone-types:
     get:
       consumes:
-        - application/json
+      - application/json
       description: Get list of zone types with pagination
       parameters:
-        - default: 1
-          description: Page number
-          in: query
-          name: page
-          type: integer
-        - default: 10
-          description: Items per page
-          in: query
-          name: limit
-          type: integer
-        - description: Search by name
-          in: query
-          name: search
-          type: string
+      - default: 1
+        description: Page number
+        in: query
+        name: page
+        type: integer
+      - default: 10
+        description: Items per page
+        in: query
+        name: limit
+        type: integer
+      - description: Search by name
+        in: query
+        name: search
+        type: string
       produces:
-        - application/json
+      - application/json
       responses:
         "200":
           description: OK
@@ -761,19 +1436,19 @@ paths:
             $ref: '#/definitions/responses.BaseResponse'
       summary: Get All Zone Types
       tags:
-        - Zone Types
+      - Zone Types
     post:
       consumes:
-        - application/json
+      - application/json
       parameters:
-        - description: Zone Type Request
-          in: body
-          name: request
-          required: true
-          schema:
-            $ref: '#/definitions/requests.CreateZoneTypeRequest'
+      - description: Zone Type Request
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/requests.CreateZoneTypeRequest'
       produces:
-        - application/json
+      - application/json
       responses:
         "201":
           description: Created
@@ -785,19 +1460,19 @@ paths:
             $ref: '#/definitions/responses.BaseResponse'
       summary: Create New Zone Type
       tags:
-        - Zone Types
+      - Zone Types
   /zone-types/{id}:
     delete:
       consumes:
-        - application/json
+      - application/json
       parameters:
-        - description: Zone Type Hash ID
-          in: path
-          name: id
-          required: true
-          type: string
+      - description: Zone Type Hash ID
+        in: path
+        name: id
+        required: true
+        type: string
       produces:
-        - application/json
+      - application/json
       responses:
         "200":
           description: OK
@@ -809,18 +1484,18 @@ paths:
             $ref: '#/definitions/responses.BaseResponse'
       summary: Delete Zone Type
       tags:
-        - Zone Types
+      - Zone Types
     get:
       consumes:
-        - application/json
+      - application/json
       parameters:
-        - description: Zone Type Hash ID
-          in: path
-          name: id
-          required: true
-          type: string
+      - description: Zone Type Hash ID
+        in: path
+        name: id
+        required: true
+        type: string
       produces:
-        - application/json
+      - application/json
       responses:
         "200":
           description: OK
@@ -832,24 +1507,24 @@ paths:
             $ref: '#/definitions/responses.BaseResponse'
       summary: Get Zone Type By ID
       tags:
-        - Zone Types
+      - Zone Types
     put:
       consumes:
-        - application/json
+      - application/json
       parameters:
-        - description: Zone Type Hash ID
-          in: path
-          name: id
-          required: true
-          type: string
-        - description: Update Request Body
-          in: body
-          name: request
-          required: true
-          schema:
-            $ref: '#/definitions/requests.UpdateZoneTypeRequest'
+      - description: Zone Type Hash ID
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Update Request Body
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/requests.UpdateZoneTypeRequest'
       produces:
-        - application/json
+      - application/json
       responses:
         "200":
           description: OK
@@ -861,5 +1536,139 @@ paths:
             $ref: '#/definitions/responses.BaseResponse'
       summary: Update Zone Type
       tags:
-        - Zone Types
+      - Zone Types
+  /zones:
+    get:
+      consumes:
+      - application/json
+      description: Get list of zones with pagination
+      parameters:
+      - default: 1
+        description: Page number
+        in: query
+        name: page
+        type: integer
+      - default: 10
+        description: Items per page
+        in: query
+        name: limit
+        type: integer
+      - description: Search by name
+        in: query
+        name: search
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/responses.PageResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/responses.BaseResponse'
+      summary: Get All Zones
+      tags:
+      - Zones
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: Zone Request
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/requests.CreateZoneRequest'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/responses.BaseResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/responses.BaseResponse'
+      summary: Create New Zone
+      tags:
+      - Zones
+  /zones/{id}:
+    delete:
+      consumes:
+      - application/json
+      parameters:
+      - description: Zone Hash ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/responses.BaseResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/responses.BaseResponse'
+      summary: Delete Zone
+      tags:
+      - Zones
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - description: Zone Hash ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/responses.BaseResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/responses.BaseResponse'
+      summary: Get Zone By ID
+      tags:
+      - Zones
+    put:
+      consumes:
+      - application/json
+      parameters:
+      - description: Zone Hash ID
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Update Request Body
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/requests.UpdateZoneRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/responses.BaseResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/responses.BaseResponse'
+      summary: Update Zone
+      tags:
+      - Zones
 swagger: "2.0"
