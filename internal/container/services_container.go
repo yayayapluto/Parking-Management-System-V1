@@ -14,12 +14,24 @@ func initServices(c *Container, o helpers.IDObfuscator, v *validator.Validate) {
 	c.HolidayService = services.NewHolidayService(c.HolidayRepo, o, v)
 	c.CustomerRegistSourceService = services.NewCustomerRegistSourceService(c.CustomerRegistSourceRepo, o, v)
 	c.PaymentMethodService = services.NewPaymentMethodService(c.PaymentMethodRepo, o, v)
-	
+
 	// Auth & User Services
 	c.UserService = services.NewUserService(c.UserRepo, o, v)
 	c.RoleService = services.NewRoleService(c.RoleRepo, o, v)
 	c.AuthService = services.NewAuthService(c.UserService)
-	
+
+	// Fee Calculator Service
+	feeCalculator := services.NewFeeCalculator(c.ZoneRateRepo)
+
 	// Transaction Services
-	c.ParkingTransactionService = services.NewParkingTransactionService(c.ParkingTransactionRepo, o, v)
+	c.ParkingTransactionService = services.NewParkingTransactionService(
+		c.ParkingTransactionRepo,
+		c.ZoneRepo,
+		c.ZoneRateRepo,
+		c.VehicleRepo,
+		c.CustomerRepo,
+		o,
+		v,
+		feeCalculator,
+	)
 }

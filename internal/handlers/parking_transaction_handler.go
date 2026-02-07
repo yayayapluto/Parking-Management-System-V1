@@ -72,3 +72,41 @@ func (h *ParkingTransactionHandler) Entry(ctx *fiber.Ctx) error {
 		"data":    result,
 	})
 }
+
+// Exit godoc
+// @Summary      Register Vehicle Exit (Gate Out)
+// @Description  Record a vehicle exiting the parking zone and calculate parking fee
+// @Tags         Transactions
+// @Accept       json
+// @Produce      json
+// @Param        request body requests.ParkingExitRequest true "Parking Exit Request"
+// @Success      200  {object}  responses.BaseResponse
+// @Failure      400  {object}  responses.BaseResponse
+// @Failure      404  {object}  responses.BaseResponse
+// @Failure      500  {object}  responses.BaseResponse
+// @Router       /transactions/exit [post]
+// @Security     Bearer
+func (h *ParkingTransactionHandler) Exit(ctx *fiber.Ctx) error {
+	// Parse the request body
+	var req requests.ParkingExitRequest
+	if err := ctx.BodyParser(&req); err != nil {
+		return h.Error(ctx, fiber.StatusBadRequest, "invalid request payload", err.Error())
+	}
+
+	// Call the service to register the exit
+	result, err := h.service.RegisterExit(ctx.Context(), req)
+	if err != nil {
+		// Check if it's a "not found" error
+		if err.Error() == "no active parking found for the given RFID" {
+			return h.Error(ctx, fiber.StatusNotFound, "no active parking found", err.Error())
+		}
+		return h.Error(ctx, fiber.StatusInternalServerError, "failed to register exit", err.Error())
+	}
+
+	// Return success response with 200 OK status
+	return ctx.Status(fiber.StatusOK).JSON(fiber.Map{
+		"success": true,
+		"message": "Vehicle exit recorded successfully",
+		"data":    result,
+	})
+}

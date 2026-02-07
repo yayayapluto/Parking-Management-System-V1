@@ -108,4 +108,5 @@ func SetupRoutes(fb *fiber.App, c *container.Container, cfg *config.Config) {
 	transactions := v1.Group("/transactions")
 	transactions.Get("/info", DiscoveryHandler(fb))
 	transactions.Post("/entry", c.ParkingTransactionHandler.Entry)
+	transactions.Post("/exit", c.ParkingTransactionHandler.Exit)
 }
