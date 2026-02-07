@@ -8,6 +8,8 @@ import (
 type ReportCache struct {
 	ID              uint           `gorm:"primaryKey;autoIncrement" json:"id" bson:"id" validate:"-"`
 	ReportType      string         `gorm:"type:varchar(20);not null;index" json:"report_type" bson:"report_type" validate:"required,oneof=daily weekly monthly zone_summary revenue occupancy"`
+	CacheKey        string         `gorm:"size:255;not null;uniqueIndex" json:"cache_key" bson:"cache_key" validate:"required,max=255"`
+	CacheData       string         `gorm:"type:text" json:"cache_data" bson:"cache_data" validate:"required"`
 	ReportDate      time.Time      `gorm:"type:date;not null;index" json:"report_date" bson:"report_date" validate:"required"`
 	ZoneID          *uint          `gorm:"index" json:"zone_id" bson:"zone_id" validate:"-"`
 	ReportData      pq.StringArray `gorm:"type:jsonb" json:"report_data" bson:"report_data" validate:"-"`
@@ -19,6 +21,8 @@ type ReportCache struct {
 	PeakOccupancy   int            `gorm:"default:0" json:"peak_occupancy" bson:"peak_occupancy" validate:"min=0"`
 	GeneratedAt     time.Time      `gorm:"not null" json:"generated_at" bson:"generated_at" validate:"required"`
 	ExpiresAt       time.Time      `gorm:"not null;index" json:"expires_at" bson:"expires_at" validate:"required"`
+	CreatedAt       time.Time      `gorm:"autoCreateTime" json:"created_at" bson:"created_at" validate:"-"`
+	UpdatedAt       time.Time      `gorm:"autoUpdateTime" json:"updated_at" bson:"updated_at" validate:"-"`
 
 	// Relations
 	Zone *Zone `gorm:"foreignKey:ZoneID" json:"zone,omitempty" bson:"zone,omitempty" validate:"-"`

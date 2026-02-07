@@ -76,6 +76,24 @@ func SetupRoutes(fb *fiber.App, c *container.Container, cfg *config.Config) {
 	pm.Put("/:id", c.PaymentMethodHandler.Update)
 	pm.Delete("/:id", c.PaymentMethodHandler.Delete)
 
+	// Customer Routes
+	cust := v1.Group("/customers")
+	cust.Get("/info", DiscoveryHandler(fb))
+	cust.Get("/", c.CustomerHandler.GetAll)
+	cust.Post("/", c.CustomerHandler.Create)
+	cust.Get("/:id", c.CustomerHandler.GetByID)
+	cust.Put("/:id", c.CustomerHandler.Update)
+	cust.Delete("/:id", c.CustomerHandler.Delete)
+
+	// Vehicle Routes
+	veh := v1.Group("/vehicles")
+	veh.Get("/info", DiscoveryHandler(fb))
+	veh.Get("/", c.VehicleHandler.GetAll)
+	veh.Post("/", c.VehicleHandler.Create)
+	veh.Get("/:id", c.VehicleHandler.GetByID)
+	veh.Put("/:id", c.VehicleHandler.Update)
+	veh.Delete("/:id", c.VehicleHandler.Delete)
+
 	// Auth Routes (No JWT required)
 	auth := v1.Group("/auth")
 	auth.Get("/info", DiscoveryHandler(fb))
@@ -109,4 +127,128 @@ func SetupRoutes(fb *fiber.App, c *container.Container, cfg *config.Config) {
 	transactions.Get("/info", DiscoveryHandler(fb))
 	transactions.Post("/entry", c.ParkingTransactionHandler.Entry)
 	transactions.Post("/exit", c.ParkingTransactionHandler.Exit)
+
+	// ============================================
+	// FINANCIALS ROUTES
+	// ============================================
+	financials := v1.Group("/financials")
+
+	// Refund Routes
+	refunds := financials.Group("/refunds")
+	refunds.Get("/info", DiscoveryHandler(fb))
+	refunds.Get("/", c.RefundHandler.GetAll)
+	refunds.Post("/", c.RefundHandler.Create)
+	refunds.Get("/:id", c.RefundHandler.GetByID)
+	refunds.Put("/:id", c.RefundHandler.Update)
+	refunds.Post("/:id/approve", c.RefundHandler.Approve)
+	refunds.Post("/:id/reject", c.RefundHandler.Reject)
+	refunds.Delete("/:id", c.RefundHandler.Delete)
+
+	// Lost Ticket Fee Routes
+	ltf := financials.Group("/lost-ticket-fees")
+	ltf.Get("/info", DiscoveryHandler(fb))
+	ltf.Get("/", c.LostTicketFeeHandler.GetAll)
+	ltf.Post("/", c.LostTicketFeeHandler.Create)
+	ltf.Get("/:id", c.LostTicketFeeHandler.GetByID)
+	ltf.Delete("/:id", c.LostTicketFeeHandler.Delete)
+
+	// ============================================
+	// OPERATIONS ROUTES
+	// ============================================
+	operations := v1.Group("/operations")
+
+	// Manual Correction Routes
+	mc := operations.Group("/manual-corrections")
+	mc.Get("/info", DiscoveryHandler(fb))
+	mc.Get("/", c.ManualCorrectionHandler.GetAll)
+	mc.Post("/", c.ManualCorrectionHandler.Create)
+	mc.Get("/:id", c.ManualCorrectionHandler.GetByID)
+	mc.Delete("/:id", c.ManualCorrectionHandler.Delete)
+
+	// Transaction Event Routes
+	te := operations.Group("/transaction-events")
+	te.Get("/info", DiscoveryHandler(fb))
+	te.Get("/", c.TransactionEventHandler.GetAll)
+	te.Post("/", c.TransactionEventHandler.Create)
+	te.Get("/:id", c.TransactionEventHandler.GetByID)
+	te.Delete("/:id", c.TransactionEventHandler.Delete)
+
+	// ============================================
+	// ADMIN ROUTES
+	// ============================================
+	admin := v1.Group("/admin")
+
+	// Reports Routes
+	reports := admin.Group("/reports")
+
+	// Shift Report Routes
+	sr := reports.Group("/shift-reports")
+	sr.Get("/info", DiscoveryHandler(fb))
+	sr.Get("/", c.ShiftReportHandler.GetAll)
+	sr.Post("/", c.ShiftReportHandler.Create)
+	sr.Get("/:id", c.ShiftReportHandler.GetByID)
+	sr.Put("/:id", c.ShiftReportHandler.Update)
+	sr.Delete("/:id", c.ShiftReportHandler.Delete)
+
+	// Daily Settlement Routes
+	ds := reports.Group("/daily-settlements")
+	ds.Get("/info", DiscoveryHandler(fb))
+	ds.Get("/", c.DailySettlementHandler.GetAll)
+	ds.Post("/", c.DailySettlementHandler.Create)
+	ds.Get("/:id", c.DailySettlementHandler.GetByID)
+	ds.Post("/:id/reconcile", c.DailySettlementHandler.Reconcile)
+	ds.Delete("/:id", c.DailySettlementHandler.Delete)
+
+	// Report Cache Routes
+	rc := reports.Group("/cache")
+	rc.Get("/info", DiscoveryHandler(fb))
+	rc.Get("/", c.ReportCacheHandler.GetAll)
+	rc.Post("/", c.ReportCacheHandler.Create)
+	rc.Get("/:id", c.ReportCacheHandler.GetByID)
+	rc.Put("/:id", c.ReportCacheHandler.Update)
+	rc.Delete("/:id", c.ReportCacheHandler.Delete)
+
+	// Logs Routes
+	logs := admin.Group("/logs")
+
+	// OCR Log Routes
+	ocr := logs.Group("/ocr-logs")
+	ocr.Get("/info", DiscoveryHandler(fb))
+	ocr.Get("/", c.OCRLogHandler.GetAll)
+	ocr.Post("/", c.OCRLogHandler.Create)
+	ocr.Get("/:id", c.OCRLogHandler.GetByID)
+	ocr.Delete("/:id", c.OCRLogHandler.Delete)
+
+	// User Activity Log Routes
+	ual := logs.Group("/user-activity-logs")
+	ual.Get("/info", DiscoveryHandler(fb))
+	ual.Get("/", c.UserActivityLogHandler.GetAll)
+	ual.Post("/", c.UserActivityLogHandler.Create)
+	ual.Get("/:id", c.UserActivityLogHandler.GetByID)
+	ual.Delete("/:id", c.UserActivityLogHandler.Delete)
+
+	// System Log Routes
+	sl := logs.Group("/system-logs")
+	sl.Get("/info", DiscoveryHandler(fb))
+	sl.Get("/", c.SystemLogHandler.GetAll)
+	sl.Post("/", c.SystemLogHandler.Create)
+	sl.Get("/:id", c.SystemLogHandler.GetByID)
+	sl.Delete("/:id", c.SystemLogHandler.Delete)
+
+	// Zone Occupancy Log Routes
+	zol := logs.Group("/zone-occupancy-logs")
+	zol.Get("/info", DiscoveryHandler(fb))
+	zol.Get("/", c.ZoneOccupancyLogHandler.GetAll)
+	zol.Post("/", c.ZoneOccupancyLogHandler.Create)
+	zol.Get("/:id", c.ZoneOccupancyLogHandler.GetByID)
+	zol.Delete("/:id", c.ZoneOccupancyLogHandler.Delete)
+
+	// Permission Routes
+	perms := admin.Group("/permissions")
+	perms.Get("/info", DiscoveryHandler(fb))
+	perms.Get("/", c.PermissionHandler.GetAll)
+	perms.Post("/", c.PermissionHandler.Create)
+	perms.Get("/:id", c.PermissionHandler.GetByID)
+	perms.Put("/:id", c.PermissionHandler.Update)
+	perms.Delete("/:id", c.PermissionHandler.Delete)
 }

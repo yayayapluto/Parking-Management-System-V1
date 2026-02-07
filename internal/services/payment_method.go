@@ -27,15 +27,13 @@ type paymentMethodService struct {
 }
 
 func NewPaymentMethodService(r repos.PaymentMethodRepository, o helpers.IDObfuscator, v *validator.Validate) PaymentMethodService {
-	return &paymentMethodService{
-		repo:       r,
-		obfuscator: o,
-		validator:  v,
-	}
+	return &paymentMethodService{repo: r, obfuscator: o, validator: v}
 }
 
-func (s *paymentMethodService) GetAll(ctx context.Context, p requests.PaginationRequest, url string) (responses.PageResponse, error) {
-	mdls, total, err := s.repo.GetWithPagination(ctx, p, "name")
+// --- CORE METHODS ---
+
+func (s *paymentMethodService) GetAll(ctx context.Context, req requests.PaginationRequest, url string) (responses.PageResponse, error) {
+	mdls, total, err := s.repo.GetWithPagination(ctx, req, "code", "name")
 	if err != nil {
 		return responses.PageResponse{}, err
 	}
@@ -49,12 +47,12 @@ func (s *paymentMethodService) GetAll(ctx context.Context, p requests.Pagination
 		Success:    true,
 		Message:    "Payment methods retrieved successfully",
 		Data:       list,
-		Pagination: responses.CreateMeta(p, total, url),
+		Pagination: responses.CreateMeta(req, total, url),
 	}, nil
 }
 
-func (s *paymentMethodService) GetByID(ctx context.Context, hashedID string) (responses.PaymentMethodResponse, error) {
-	id, err := s.obfuscator.Decode(hashedID)
+func (s *paymentMethodService) GetByID(ctx context.Context, hashID string) (responses.PaymentMethodResponse, error) {
+	id, err := s.obfuscator.Decode(hashID)
 	if err != nil {
 		return responses.PaymentMethodResponse{}, errors.New("invalid payment method id")
 	}
@@ -72,46 +70,46 @@ func (s *paymentMethodService) Create(ctx context.Context, req requests.CreatePa
 		return responses.PaymentMethodResponse{}, err
 	}
 
-	pm := &models.PaymentMethod{
+	paymentMethod := models.PaymentMethod{
 		Code:     req.Code,
 		Name:     req.Name,
 		Config:   pq.StringArray(req.Config),
 		IsActive: req.IsActive,
 	}
 
-	if err := s.repo.Create(ctx, pm); err != nil {
+	if err := s.repo.Create(ctx, &paymentMethod); err != nil {
 		return responses.PaymentMethodResponse{}, err
 	}
 
-	return s.mapToResponse(*pm), nil
+	return s.mapToResponse(paymentMethod), nil
 }
 
-func (s *paymentMethodService) Update(ctx context.Context, hashedID string, req requests.UpdatePaymentMethodRequest) (responses.PaymentMethodResponse, error) {
+func (s *paymentMethodService) Update(ctx context.Context, hashID string, req requests.UpdatePaymentMethodRequest) (responses.PaymentMethodResponse, error) {
 	if err := s.validator.Struct(req); err != nil {
 		return responses.PaymentMethodResponse{}, err
 	}
 
-	id, err := s.obfuscator.Decode(hashedID)
+	id, err := s.obfuscator.Decode(hashID)
 	if err != nil {
-		return responses.PaymentMethodResponse{}, errors.New("invalid payment method id")
+		return responses.PaymentMethodResponse{}, errors.New("invalid id format")
 	}
 
+	// 1. Ambil data lama
 	existing, err := s.repo.GetByID(ctx, id)
 	if err != nil {
 		return responses.PaymentMethodResponse{}, err
 	}
 
+	// 2. Patching data (Hanya yang dikirim di request)
 	if req.Name != "" {
 		existing.Name = req.Name
 	}
-
-	// Untuk slice/array, biasanya kita ganti seluruhnya jika diinput
-	if req.Config != nil {
+	if len(req.Config) > 0 {
 		existing.Config = pq.StringArray(req.Config)
 	}
-
 	existing.IsActive = req.IsActive
 
+	// 3. Save
 	if err := s.repo.Update(ctx, existing); err != nil {
 		return responses.PaymentMethodResponse{}, err
 	}
@@ -119,22 +117,30 @@ func (s *paymentMethodService) Update(ctx context.Context, hashedID string, req 
 	return s.mapToResponse(*existing), nil
 }
 
-func (s *paymentMethodService) Delete(ctx context.Context, hashedID string) error {
-	id, err := s.obfuscator.Decode(hashedID)
+func (s *paymentMethodService) Delete(ctx context.Context, hashID string) error {
+	id, err := s.obfuscator.Decode(hashID)
 	if err != nil {
-		return errors.New("invalid payment method id")
+		return errors.New("invalid id format")
 	}
 
 	return s.repo.Delete(ctx, id)
 }
 
+// --- PRIVATE HELPER ---
+
 func (s *paymentMethodService) mapToResponse(m models.PaymentMethod) responses.PaymentMethodResponse {
-	hId, _ := s.obfuscator.Encode(m.ID)
+	hID, _ := s.obfuscator.Encode(m.ID)
+
+	config := []string{}
+	if m.Config != nil {
+		config = m.Config
+	}
+
 	return responses.PaymentMethodResponse{
-		ID:        hId,
+		ID:        hID,
 		Code:      m.Code,
 		Name:      m.Name,
-		Config:    []string(m.Config),
+		Config:    config,
 		IsActive:  m.IsActive,
 		CreatedAt: m.CreatedAt.Format("2006-01-02 15:04:05"),
 		UpdatedAt: m.UpdatedAt.Format("2006-01-02 15:04:05"),

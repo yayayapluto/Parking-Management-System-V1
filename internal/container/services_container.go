@@ -15,6 +15,10 @@ func initServices(c *Container, o helpers.IDObfuscator, v *validator.Validate) {
 	c.CustomerRegistSourceService = services.NewCustomerRegistSourceService(c.CustomerRegistSourceRepo, o, v)
 	c.PaymentMethodService = services.NewPaymentMethodService(c.PaymentMethodRepo, o, v)
 
+	// Customer & Vehicle Services
+	c.CustomerService = services.NewCustomerService(c.CustomerRepo, o, v)
+	c.VehicleService = services.NewVehicleService(c.VehicleRepo, o, v)
+
 	// Auth & User Services
 	c.UserService = services.NewUserService(c.UserRepo, o, v)
 	c.RoleService = services.NewRoleService(c.RoleRepo, o, v)
@@ -34,4 +38,26 @@ func initServices(c *Container, o helpers.IDObfuscator, v *validator.Validate) {
 		v,
 		feeCalculator,
 	)
+
+	// Financials Services
+	c.RefundService = services.NewRefundService(c.RefundRepo, o, v)
+	c.LostTicketFeeService = services.NewLostTicketFeeService(c.LostTicketFeeRepo, o, v)
+
+	// Operations Services
+	c.ManualCorrectionService = services.NewManualCorrectionService(c.ManualCorrectionRepo, o, v)
+	c.TransactionEventService = services.NewTransactionEventService(c.TransactionEventRepo, o, v)
+
+	// Reporting Services
+	c.ShiftReportService = services.NewShiftReportService(c.ShiftReportRepo, o, v)
+	c.DailySettlementService = services.NewDailySettlementService(c.DailySettlementRepo, o, v)
+
+	// Logging Services
+	c.OCRLogService = services.NewOCRLogService(c.OCRLogRepo, o, v)
+	c.UserActivityLogService = services.NewUserActivityLogService(c.UserActivityLogRepo, o, v)
+	c.SystemLogService = services.NewSystemLogService(c.SystemLogRepo, o, v)
+	c.ZoneOccupancyLogService = services.NewZoneOccupancyLogService(c.ZoneOccupancyLogRepo, o, v)
+
+	// Others Services
+	c.PermissionService = services.NewPermissionService(c.PermissionRepo, o, v)
+	c.ReportCacheService = services.NewReportCacheService(c.ReportCacheRepo, o, v)
 }
